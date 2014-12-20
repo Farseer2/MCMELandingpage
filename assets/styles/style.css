@@ -1,0 +1,253 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+body
+{
+    font: 500 20px Raleway;
+
+    overflow-x: hidden;
+
+    width: 100%;
+    height: 100%;
+
+    background: url(http://aaldim.tk/mcme/landingpage/v1/images/bg/3.png) no-repeat center center fixed;
+    background-position: center;
+    background-size: cover;
+}
+.nav
+{
+    position: absolute;
+    top: -20;
+    left: 0;
+
+    overflow: hidden;
+
+    width: 97% !important;
+    height: 50px;
+    padding-right: 20px;
+
+    background-color: #394045;
+}
+.nav li
+{
+    float: left;
+
+    height: 50px;
+    padding-top: 17.5px !important;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    list-style: none;
+
+    cursor: pointer;
+    -webkit-transition: background-color ease-in-out .5s;
+       -moz-transition: background-color ease-in-out .5s;
+         -o-transition: background-color ease-in-out .5s;
+            transition: background-color ease-in-out .5s;
+    text-align: center;
+
+    color: #fff;
+    border-left: 1px solid rgba(0,0,0,.1);
+    background-color: none;
+    text-shadow: 0 -3px 3px rgba(255, 255, 255, .2);
+}
+.nav li a,a:visited,a:hover
+{
+    text-decoration: none;
+
+    color: white;
+}
+.nav li:first-child
+{
+    font-weight: bold;
+
+    border-left: none;
+}
+.nav li:hover
+{
+    background-color: #454e55;
+}
+.nav li.active
+{
+    background-color: rgba(255,255,255,.2);
+}
+.nav li.right
+{
+    float: right;
+}
+.header
+{
+    font: 600 36px Raleway;
+    font-weight: 600;
+
+    margin-top: 100px;
+    margin-left: 20px;
+
+    color: #e4e4e4;
+}
+.header2
+{
+    font: 600 36px Raleway;
+}
+.news
+{
+    font: 600 18.46px Raleway;
+
+    width: 800px;
+    height: auto;
+    margin: 10px;
+    padding: 1px;
+
+    color: #a3a3a3;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: rgba(0, 0, 0, .5);
+
+    -khtml-border-radius: 10px;
+}
+.article-header
+{
+    font: 600 36px Raleway;
+
+    color: #fff;
+}
+.article
+{
+    margin: 25px;
+}
+.link
+{
+    width: auto;
+
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in;
+    text-decoration: none;
+    text-decoration: none;
+
+    color: #e4e4e4;
+    border-bottom: 1px solid transparent;
+}
+.link:hover
+{
+    border-bottom: 2px solid #fff;
+}
+.link > .article
+{
+    margin: 300px;
+}
+.separater
+{
+    margin: 10;
+
+    border-bottom: 1px solid #e4e4e4;
+}
+.sidebar
+{
+    font: 600 18.46px Raleway;
+
+    position: relative;
+    right: 20;
+    bottom: 900px;
+
+    float: right;
+
+    width: 300px;
+    height: auto;
+    padding: 10px;
+
+    color: #a3a3a3;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: rgba(0, 0, 0, .5);
+
+    -khtml-border-radius: 10px;
+}
+.button
+{
+    font-size: 60;
+
+    width: 250px;
+    height: 70px;
+    margin: 25px;
+
+    cursor: pointer;
+    -webkit-transition: background-color ease-in-out .3s;
+       -moz-transition: background-color ease-in-out .3s;
+         -o-transition: background-color ease-in-out .3s;
+            transition: background-color ease-in-out .3s;
+    text-align: center;
+
+    color: #a3a3a3;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #803b3b;
+
+    -khtml-border-radius: 10px;
+}
+.button:hover
+{
+    background-color: #a73434;
+}
+h1
+{
+    display: inline;
+}
+.side-header
+{
+    right: 0;
+
+    margin: 20px;
+
+    text-align: center;
+
+    color: #e4e4e4;
+    border: 2px solid;
+    border-color: #a3a3a3;
+    border-radius: 25px;
+}
+.side-content,p
+{
+    margin: 10px;
+}
+.ip
+{
+    font-size: 10px;
+    font-style: italic;
+}
+.online
+{
+    color: green;
+}
+.offline
+{
+    color: red;
+}
+.status
+{
+    font-size: 15px;
+
+    display: inline;
+    float: right;
+}
+.staff-list
+{
+    text-align: center;
+}
+.staff-pic
+{
+    height: 40;
+    margin-right: 10;
+
+    border-radius: 25px;
+}
+/*.footer
+{
+    bottom: 0;
+
+    height: auto;
+
+    color: #e4e4e4;
+    background-color: black;
+}
+*/

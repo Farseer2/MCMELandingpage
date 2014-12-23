@@ -4,21 +4,14 @@ body
     font: 500 20px Raleway;
 
     overflow-x: hidden;
+    overflow-y: hidden;
 
     width: 100%;
     height: 100%;
 
-    -webkit-transition: 3s;
-       -moz-transition: 3s;
-        -ms-transition: 3s;
-         -o-transition: 3s;
-            transition: 3s;
-
-    background: url(../images/bg/1.png) no-repeat center center fixed; /* Rotating Screenshot */
-    -webkit-background-size: cover;
-       -moz-background-size: cover;
-         -o-background-size: cover;
-            background-size: cover;
+    background: url(http://aaldim.tk/mcme/landingpage/v1/images/bg/3.png) no-repeat center center fixed;
+    background-position: center;
+    background-size: cover;
 }
 .nav
 {
@@ -111,10 +104,6 @@ body
     font: 600 36px Raleway;
 
     color: #fff;
-}
-.article
-{
-    margin: 25px;
 }
 .link
 {
@@ -259,6 +248,11 @@ ul
     margin-left: 75%;
 
     color: #e4e4e4;
+}
+.article>ul
+{
+    margin: 25px;
+    list-style-type:inherit;
 }
 /*.footer
 {

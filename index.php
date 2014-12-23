@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="assets/styles/style.css">
+        <script src="assets/scripts/jquery-1.11.2.min.js"></script>
         <script src="assets/scripts/script.js"></script>
         <title>Minecraft Middle Earth | Home</title>
     </head>
@@ -17,6 +18,8 @@
                 <li><a href="#">NEW PLAYERS</a></li>
             </ul>
         </div>
+        
+    <h3 id="desc" class="screenshot-placename">Pelennor Fields</h3>
         <div class="header">
             <img class="logo" src="http://aaldim.tk/mcme/landingpage/v1/images/Icons/logo.png">
             <h1 class="header1">MCME</h1>
@@ -49,12 +52,24 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
             <div class="side-header">Servers</div>
             <div class="side-content">
                 <div class="server-status">
-                    <p>Build</p><p class="<?php if(checkMCServerOnline('build.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Online</p>
-                    <p class="ip">build.mcmiddleearth.com</p>
-                    <p>Freebuild</p><p class="<?php if(checkMCServerOnline('freebuild.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Online</p>
-                    <p class="ip">freebuild.mcmiddleearth.com</p>
-                    <p>PVP</p><p class="<?php if(checkMCServerOnline('pvp.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Offline</p>
-                    <p class="ip">pvp.mcmiddleearth.com</p>
+                    <div class="status-row">
+                        <p class="status-name">Build</p><p class="<?php if(checkMCServerOnline('build.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Online</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">build.mcmiddleearth.com</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="status-name">Freebuild</p><p class="<?php if(checkMCServerOnline('freebuild.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Online</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">freebuild.mcmiddleearth.com</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="status-name">PVP</p><p class="<?php if(checkMCServerOnline('pvp.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Offline</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">pvp.mcmiddleearth.com</p>
+                    </div>
                 </div>
                 <div class="side-header">Staff Online Now</div>
                 <div class="staff-list">
@@ -69,18 +84,35 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
                 </div>
                 <div class="side-header">Mojang</div>
                 <div clas="services">
-                    <p>WebSite</p><p class="<?php if(checkMojangOnline('website') == 'red') {echo 'offline';}?> status">Online</p>
-                    <p class="ip">minecraft.net</p>
-                    <p>Login</p><p class="<?php if(checkMojangOnline('login') == 'red') {echo 'offline';}?> status">Online</p>
-                    <p class="ip">Login Server</p>
-                    <p>Session</p><p class="<?php if(checkMojangOnline('session') == 'red') {echo 'offline';}?> status">Online</p>
-                    <p class="ip">Session Server</p>
-                    <p>Skin</p><p class="<?php if(checkMojangOnline('skin') == 'red') {echo 'offline';}?> status">Online</p>
-                    <p class="ip">Skin Server</p>
+                    <div class="status-row">
+                        <p class="status-name">WebSite</p><p class="<?php if(checkMojangOnline('website') == 'red') {echo 'offline';}?> status">Online</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">minecraft.net</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="status-name">Login</p><p class="<?php if(checkMojangOnline('login') == 'red') {echo 'offline';}?> status">Online</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">Login Server</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="status-name">Session</p><p class="<?php if(checkMojangOnline('session') == 'red') {echo 'offline';}?> status">Online</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">Session Server</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="status-name">Skin</p><p class="<?php if(checkMojangOnline('skin') == 'red') {echo 'offline';}?> status">Online</p>
+                    </div>
+                    <div class="status-row">
+                        <p class="ip">Skin Server</p>
+                    </div>
                 </div>
             </div>
         </div>
-    <h3 id="desc" class="screenshot-placename">Pelennor Fields</h3>
+        <div id="footer">
         <!-- TODO: Footer here-->
+        </div>
     </body>
 </html>

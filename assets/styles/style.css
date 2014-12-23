@@ -254,3 +254,33 @@ ul
 {
     margin: 25px;
 }
+
+.status-row
+{
+    clear: both;
+    margin-bottom: 5px;
+}
+
+.status-row p
+{
+    padding: 0;
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.status-row .ip
+{
+    margin-bottom: 20px;
+}
+
+.status-name
+{
+    float: left;
+}
+
+#footer
+{
+    margin-top: 40px;
+    overflow: hidden;
+}

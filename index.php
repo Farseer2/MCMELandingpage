@@ -1,6 +1,8 @@
 <html>
     <head>
         <link rel="stylesheet" href="assets/styles/style.css">
+        <script src="assets/scripts/script.js"></script>
+        <title>Minecraft Middle Earth | Home</title>
     </head>
     <body>
         <div class="navbar">
@@ -56,8 +58,10 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
                 </div>
                 <div class="side-header">Staff Online Now</div>
                 <div class="staff-list">
-                    <img class="staff-pic" src="http://www.mcmiddleearth.com/data/avatars/l/0/43.jpg?1394287711">MaDIIReD<p class="staff"></p>
-                    <img class="staff-pic" src="http://www.mcmiddleearth.com/data/avatars/l/0/5.jpg?1414188440">Ghundra<p class="staff"></p>
+                    <ul>
+                        <li><img class="staff-pic" src="http://www.mcmiddleearth.com/data/avatars/l/0/43.jpg?1394287711">MaDIIReD<p class="staff"></p></li>
+                        <li><img class="staff-pic" src="http://www.mcmiddleearth.com/data/avatars/l/0/5.jpg?1414188440">Ghundra<p class="staff"></p></li>
+                    </ul>
                 </div>
                 <div class="side-header">Jobs</div>
                 <div class="jobs">
@@ -76,6 +80,7 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
                 </div>
             </div>
         </div>
+    <h3 id="desc" class="screenshot-placename">Pelennor Fields</h3>
         <!--
         <div class="footer">
             <p>Home Page made by <a class="link" href="https://github.com/aaldim1/">Aaldim</a> for <a class="link" href="http://www.mcmiddleearth.com/">MCME</a>.</p>

@@ -4,7 +4,6 @@ body
     font: 500 20px Raleway;
 
     overflow-x: hidden;
-    overflow-y: hidden;
 
     width: 100%;
     height: 100%;
@@ -206,20 +205,18 @@ h1
     font-size: 10px;
     font-style: italic;
 }
-.online
-{
-    color: green;
-}
-.offline
-{
-    color: red;
-}
 .status
 {
     font-size: 15px;
 
     display: inline;
     float: right;
+
+    color:green;
+}
+.offline
+{
+    color: red;
 }
 .staff-list
 {
@@ -251,8 +248,11 @@ ul
 }
 .article>ul
 {
-    margin: 25px;
     list-style-type:inherit;
+}
+.article
+{
+    margin: 25px;
 }
 /*.footer
 {

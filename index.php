@@ -1,3 +1,4 @@
+<?php require_once("includes/functions.php"); ?>
 <html>
     <head>
         <link rel="stylesheet" href="assets/styles/style.css">
@@ -49,11 +50,11 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
             <div class="side-header">Servers</div>
             <div class="side-content">
                 <div class="server-status">
-                    <p>Build</p><p class="online status">Online</p>
+                    <p>Build</p><p class="<?php if(checkMCServerOnline('build.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Online</p>
                     <p class="ip">build.mcmiddleearth.com</p>
-                    <p>Freebuild</p><p class="online status">Online</p>
+                    <p>Freebuild</p><p class="<?php if(checkMCServerOnline('freebuild.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Online</p>
                     <p class="ip">freebuild.mcmiddleearth.com</p>
-                    <p>PVP</p><p class="offline status">Offline</p>
+                    <p>PVP</p><p class="<?php if(checkMCServerOnline('pvp.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status">Offline</p>
                     <p class="ip">pvp.mcmiddleearth.com</p>
                 </div>
                 <div class="side-header">Staff Online Now</div>
@@ -69,13 +70,13 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
                 </div>
                 <div class="side-header">Mojang</div>
                 <div clas="services">
-                    <p>WebSite</p><p class="online status">Online</p>
+                    <p>WebSite</p><p class="<?php if(checkMojangOnline('website') == 'red') {echo 'offline';}?> status">Online</p>
                     <p class="ip">minecraft.net</p>
-                    <p>Login</p><p class="online status">Online</p>
+                    <p>Login</p><p class="<?php if(checkMojangOnline('login') == 'red') {echo 'offline';}?> status">Online</p>
                     <p class="ip">Login Server</p>
-                    <p>Session</p><p class="online status">Online</p>
+                    <p>Session</p><p class="<?php if(checkMojangOnline('session') == 'red') {echo 'offline';}?> status">Online</p>
                     <p class="ip">Session Server</p>
-                    <p>Skin</p><p class="online status">Online</p>
+                    <p>Skin</p><p class="<?php if(checkMojangOnline('skin') == 'red') {echo 'offline';}?> status">Online</p>
                     <p class="ip">Skin Server</p>
                 </div>
             </div>

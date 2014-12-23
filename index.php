@@ -15,7 +15,6 @@
                 <li><a href="#">RESOURCES</a></li>
                 <li><a href="#">WIKI</a></li>
                 <li><a href="#">NEW PLAYERS</a></li>
-                <!--<li class="right"><a href="#">Profile</a></li>-->
             </ul>
         </div>
         <div class="header">
@@ -82,10 +81,6 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
             </div>
         </div>
     <h3 id="desc" class="screenshot-placename">Pelennor Fields</h3>
-        <!--
-        <div class="footer">
-            <p>Home Page made by <a class="link" href="https://github.com/aaldim1/">Aaldim</a> for <a class="link" href="http://www.mcmiddleearth.com/">MCME</a>.</p>
-        </div>
-        -->
+        <!-- TODO: Footer here-->
     </body>
 </html>

@@ -8,6 +8,12 @@ body
     width: 100%;
     height: 100%;
 
+    -webkit-transition: 3s;
+       -moz-transition: 3s;
+        -ms-transition: 3s;
+         -o-transition: 3s;
+            transition: 3s;
+
     background: url(../images/bg/1.png) no-repeat center center fixed;
     background-position: center;
     background-size: cover;
@@ -120,7 +126,7 @@ body
 {
     border-bottom: 2px solid #fff;
 }
-.article>.link
+.article > .link
 {
     margin: 300px;
 }
@@ -212,7 +218,7 @@ h1
     display: inline;
     float: right;
 
-    color:green;
+    color: green;
 }
 .offline
 {
@@ -246,9 +252,9 @@ ul
 
     color: #e4e4e4;
 }
-.article>ul
+.article > ul
 {
-    list-style-type:inherit;
+    list-style-type: inherit;
 }
 .article
 {
@@ -258,15 +264,16 @@ ul
 .status-row
 {
     clear: both;
+
     margin-bottom: 5px;
 }
 
 .status-row p
 {
-    padding: 0;
     margin: 10px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
 }
 
 .status-row .ip
@@ -281,6 +288,7 @@ ul
 
 #footer
 {
-    margin-top: 40px;
     overflow: hidden;
+
+    margin-top: 40px;
 }

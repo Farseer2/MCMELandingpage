@@ -2,7 +2,7 @@
 {
     var bgCounter = 0,
         backgrounds = ["assets/images/bg/1.png","assets/images/bg/2.png","assets/images/bg/3.png","assets/images/bg/4.png","assets/images/bg/5.png","assets/images/bg/6.png"], //configurable
-        descriptions = ["Misty Mountains","Misty Mountains","Rivendell","Harlond","Paths of the Dead","Pelennor Fields"]
+        descriptions = ["Glittering Caves","Misty Mountains","Rivendell","Harlond","Paths of the Dead","Pelennor Fields"]
         //this should be together with the images, 2d array?
 
     function changeBackground()

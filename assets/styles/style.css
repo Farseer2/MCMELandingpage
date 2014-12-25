@@ -292,3 +292,11 @@ ul
 
     margin-top: 40px;
 }
+.replycount
+{
+    float: right;
+
+    margin-right: 60px;
+
+    color: white;
+}

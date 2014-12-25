@@ -5,7 +5,6 @@
     $fileDir = dirname(__FILE__)."/{$kotomi_indexFile}";
     require "{$fileDir}/library/Dark/Kotomi/KotomiHeader.php";
 ?>
-
 <?php require_once('includes/functions.php'); ?>
 <html>
     <head>
@@ -34,26 +33,24 @@
             <h2 class='header2'>minecraft middle earth</h2>
         </div>
         <div class='news'>
-            <div class='article'>
-                <h3 class='article-header'>Resource packs updated</h3>
-                <p>The following Resourcepacks have been updated to the next milestone (16 Dec 2014):
-                <ul>
-                    <li>Eriador</li>
-                    <li>Lothlorien</li>
-                    <li>Gondor</li>
-                    <li>Rohan</li>
-                </ul>
-                <a class='link' href='http://www.mcmiddleearth.com/threads/resource-packs-updated.1935/'>Read More</a>
-            </div>
-            <div class='separater'></div>
-            <div class='article'>
-                <h3 class='article-header'>~The MCME Times~ [12/14/14]</h3>
-                <img alt='' width='500' src='http://i.imgur.com/qZRemZY.png'>
-                <p><h3>Opening Statement</h3>
-It's been an interesting week for MCME with lots of things happening, both happy and sad. Projects have been finished and new ones have been started. There have been rumours about a reboot of Pelargir though that would still be a while off.
-I've seen the many, many, many suggestions you guys made. And I will take them to heart.</p>
-            <a class='link' href='http://www.mcmiddleearth.com/threads/resource-packs-updated.1935/'>Read More</a>
-            </div>
+            <?php
+                /* TODO: Configurable */
+                $threadModel = XenForo_Model::create('XenForo_Model_Thread');
+                $conditions = array();
+                $options = array('join' => XenForo_Model_Thread::FETCH_FIRSTPOST,
+                                'limit' => 2);
+                $threads = $threadModel->getThreadsInForum(2, $conditions, $options);
+                foreach ($threads AS $threadId => $thread) {
+                    if ($threadModel->canViewThread($thread,$thread)) {
+                      echo '<div class="article">
+                                    <h3 class="article-header">' . XenForo_Helper_String::wholeWordTrim($thread['title'], 48) . '</h3>  
+                                    <p>' . XenForo_Helper_String::wholeWordTrim($thread['message'], 440) . '</p> 
+                                    <span class="replycount">Replies: ' . $thread['reply_count'] . '</span><br />
+                                    <a class="link" href="' . XenForo_Link::buildPublicLink('canonical:threads', $thread) . '">Read More</a>
+                                </div>';
+                    }
+                }
+            ?>
         </div>
         <div class='sidebar'>
             <?php
@@ -62,18 +59,19 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
                 $user_id = $visitor->getUserId();
                 if ($user_id != null) {
 
-                    $user = XenForo_Model::create('XenForo_Model_User');
+                    $userModel = XenForo_Model::create('XenForo_Model_User');
+                    $trophyModel = Xenforo_Model::create('Xenforo_Model_Trophy');
 
-                    $me = $user->getUserById(1);
-
+                    $trophycount = $trophyModel->countTrophiesForUserId(1);
                     $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
-                    $likes = XenForo_Template_Helper_Core::callHelper('likes', array($visitor->toArray(), 'm', null, false));
-
+                
                     echo '<img alt="" width="100" height="100" src="/forums/'.$avatarUrl.'">';
+                    echo $visitor['username']."</br>";
+                    echo $trophycount;
 
                 } else {
                     echo "<div class='button'>JOIN US</div>";
-                }
+                }            
             ?>
             <div class='side-header'>Servers</div>
             <div class='side-content'>
@@ -142,3 +140,4 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
         </div>
     </body>
 </html>
+

@@ -56,7 +56,25 @@ I've seen the many, many, many suggestions you guys made. And I will take them t
             </div>
         </div>
         <div class='sidebar'>
-            <div class='button'>JOIN US</div>
+            <?php
+                XenForo_Session::startPublicSession();
+                $visitor = XenForo_Visitor::getInstance();
+                $user_id = $visitor->getUserId();
+                if ($user_id != null) {
+
+                    $user = XenForo_Model::create('XenForo_Model_User');
+
+                    $me = $user->getUserById(1);
+
+                    $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
+                    $likes = XenForo_Template_Helper_Core::callHelper('likes', array($visitor->toArray(), 'm', null, false));
+
+                    echo '<img alt="" width="100" height="100" src="/forums/'.$avatarUrl.'">';
+
+                } else {
+                    echo "<div class='button'>JOIN US</div>";
+                }
+            ?>
             <div class='side-header'>Servers</div>
             <div class='side-content'>
                 <div class='server-status'>

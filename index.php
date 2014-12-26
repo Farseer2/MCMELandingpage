@@ -41,7 +41,7 @@
                                 'limit' => 2);
                 $threads = $threadModel->getThreadsInForum(2, $conditions, $options);
                 foreach ($threads AS $threadId => $thread) {
-                    if ($threadModel->canViewThread($thread,$thread)) {
+                    if ($threadModel->canViewThread($thread,$thread) && $thread['cta_ft_featured'] == 1) {
                       echo '<div class="article">
                                     <h3 class="article-header">' . XenForo_Helper_String::wholeWordTrim($thread['title'], 48) . '</h3>  
                                     <p>' . XenForo_Helper_String::wholeWordTrim($thread['message'], 440) . '</p> 
@@ -53,26 +53,39 @@
             ?>
         </div>
         <div class='sidebar'>
-            <?php
-                XenForo_Session::startPublicSession();
-                $visitor = XenForo_Visitor::getInstance();
-                $user_id = $visitor->getUserId();
-                if ($user_id != null) {
+            <div class="user-info">
+                <?php
+                    XenForo_Session::startPublicSession();
+                    $visitor = XenForo_Visitor::getInstance();
+                    $user_id = $visitor->getUserId();
+                    if ($user_id != null) {
+                        
+                        $userModel = XenForo_Model::create('XenForo_Model_User');
+                        $trophyModel = Xenforo_Model::create('Xenforo_Model_Trophy');
+                        
+                        $trophycount = $trophyModel->countTrophiesForUserId(1);
+                        $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
 
-                    $userModel = XenForo_Model::create('XenForo_Model_User');
-                    $trophyModel = Xenforo_Model::create('Xenforo_Model_Trophy');
+                        echo '<img class="avatar" src="/forums/'.$avatarUrl.'">';
+                        echo '<a href="/forums/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
+                        
+                        echo '<ul class="userstats">';
+                        echo '<li>Messages: '.$trophycount.'</li>'; //messages (TODO)
+                        echo '<li>Likes: '.$trophycount.'</li>'; //Likes (TODO)
+                        echo '<li>Points: '.$trophycount.'</li>'; //trophy points
 
-                    $trophycount = $trophyModel->countTrophiesForUserId(1);
-                    $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
-                
-                    echo '<img alt="" width="100" height="100" src="/forums/'.$avatarUrl.'">';
-                    echo $visitor['username']."</br>";
-                    echo $trophycount;
-
-                } else {
-                    echo "<div class='button'>JOIN US</div>";
-                }            
-            ?>
+                    } else {
+                        echo "<div class='button'>JOIN US</div>";
+                    }  
+/*
+                    if ($visitor->isStaff)
+                    {
+                     echo "<h1>kewl</h1>";
+                    }
+*/
+                ?>
+                </ul>
+            </div>
             <div class='side-header'>Servers</div>
             <div class='side-content'>
                 <div class='server-status'>
@@ -140,4 +153,3 @@
         </div>
     </body>
 </html>
-

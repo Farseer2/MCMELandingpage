@@ -91,6 +91,8 @@ body
 }
 .news
 {
+    position: absolute;
+
     width: 800px;
     height: auto;
     margin: 10px;
@@ -103,8 +105,6 @@ body
     background-color: rgba(0, 0, 0, .5);
 
     -khtml-border-radius: 10px;
-    
-    position:absolute;
 }
 .article-header
 {
@@ -261,14 +261,12 @@ ul
 {
     margin: 25px;
 }
-
 .status-row
 {
     clear: both;
 
     margin-bottom: 5px;
 }
-
 .status-row p
 {
     margin: 10px;
@@ -276,17 +274,10 @@ ul
     margin-bottom: 0;
     padding: 0;
 }
-
-.status-row .ip
-{
-    margin-bottom: 20px;
-}
-
 .status-name
 {
     float: left;
 }
-
 #footer
 {
     overflow: hidden;
@@ -327,4 +318,80 @@ ul
     right: 100px;
 
     margin: 10px;
+}
+.player-pic
+{
+    position: relative;
+
+    width: 30px;
+    height: 30px;
+    margin: 1px;
+    margin-top: 10px;
+
+    cursor: pointer;
+
+    align-content: center;
+}
+.list p
+{
+    font-size: 15px;
+
+    display: inline;
+    float: right;
+
+    margin-top: 20px;
+}
+.list
+{
+    width: 280px;
+    height: 40px;;
+}
+a[tooltip]
+{
+    position: relative;
+}
+a[tooltip]::before,a[tooltip]::after
+{
+    position: absolute;
+
+    display: none;
+
+    opacity: .85;
+}
+a[tooltip]::before
+{
+    font-size: 13px;
+
+    bottom: 100%;
+    left: 0;
+
+    margin-bottom: 10px;
+    padding: 5px;
+
+    content: attr(tooltip);
+    white-space: nowrap;
+    text-decoration: none;
+
+    color: #fff;
+    border-radius: 5px;
+    background: #000;
+}
+a[tooltip]::after
+{
+    bottom: 100%;
+    left: 10px;
+
+    width: 0;
+    height: 0;
+    margin-bottom: 4px;
+
+    content: \'\';
+
+    border: 6px solid transparent;
+    border-top-color: #000;
+    border-bottom: none;
+}
+a[tooltip]:hover::before,a[tooltip]:hover::after
+{
+    display: block;
 }

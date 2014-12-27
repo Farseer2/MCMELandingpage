@@ -89,20 +89,29 @@
                     <div class='status-row'>
                         <p class='status-name'>Build</p><p class='<?php if(checkMCServerOnline('build.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status'>Online</p>
                     </div>
-                    <div class='status-row'>
-                        <p class='ip'>build.mcmiddleearth.com</p>
+                    <div class='status-row'> <!-- (TODO) add mc-skin heads, make backend work-->
+                        <!--<p class='ip'>build.mcmiddleearth.com</p>-->
+                        <div class="list">
+                            <a tooltip="xSTALKERx"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/46.jpg'></a>
+                            <a tooltip="JoepopXIII"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/50.jpg'></a>
+                            <a tooltip="TheDiplomaticMissile"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/143.jpg'></a>
+                            <a tooltip="aaldim"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/112.jpg'></a>
+                            <a tooltip="Shenjtor"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/182.jpg'></a>
+                            <p>And more..</p>
+                        </div>
                     </div>
                     <div class='status-row'>
                         <p class='status-name'>Freebuild</p><p class='<?php if(checkMCServerOnline('freebuild.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status'>Online</p>
                     </div>
-                    <div class='status-row'>
-                        <p class='ip'>freebuild.mcmiddleearth.com</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='status-name'>PVP</p><p class='<?php if(checkMCServerOnline('pvp.mcmiddleearth.com') == 'offline') {echo 'offline';}?> status'>Offline</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='ip'>pvp.mcmiddleearth.com</p>
+                    <div class='status-row'> <!-- (TODO) add mc-skin heads, make backend work-->
+                        <!--<p class='ip'>build.mcmiddleearth.com</p>-->
+                        <div class="list">
+                            <a tooltip="TheDiplomaticMissile"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/143.jpg'></a>
+                            <a tooltip="xSTALKERx"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/46.jpg'></a>
+                            <a tooltip="Shenjtor"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/182.jpg'></a>
+                            <a tooltip="aaldim"><img class='player-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/112.jpg'></a>
+                            <p>And more..</p>
+                        </div>
                     </div>
                 </div>
                 <div class='side-header'>Staff Online Now</div>
@@ -152,12 +161,18 @@
         <script src='assets/scripts/script.js'></script>
     </body>
 </html>
-<!--(TODO) Needs work and must be fixed -->
+<!--(TODO) Needs to be implemented with Frontend -->
 <?php
 
     $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
 
     $servers = $herodevModel->getAllMinecraftServers();
-    echo $servers[1]['query_data']; //get online players (TODO)
+    
+    $herodevModel->queryMinecraftServer(1);
 
+    $players = $servers[1]['query_data']; 
+
+     foreach(getOnlinePlayers($players) as $player) {
+        //echo $player;
+     }
 ?>

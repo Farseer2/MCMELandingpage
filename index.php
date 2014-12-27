@@ -9,8 +9,6 @@
 <html>
     <head>
         <link rel='stylesheet' href='assets/styles/style.css'>
-        <script src='assets/scripts/jquery-1.11.2.min.js'></script>
-        <script src='assets/scripts/script.js'></script>
         <title>Minecraft Middle Earth | Home</title>
     </head>
     <body>
@@ -25,7 +23,6 @@
                 <li><a href='#'>NEW PLAYERS</a></li>
             </ul>
         </div>
-        
     <h3 id='desc' class='screenshot-placename'>Glittering Caves</h3>
         <div class='header'>
             <img class='logo' src='assets/images/Icons/logo.png'>
@@ -34,7 +31,7 @@
         </div>
         <div class='news'>
             <?php
-                /* TODO: Configurable */
+                /* (TODO) Configurable */
                 $threadModel = XenForo_Model::create('XenForo_Model_Thread');
                 $conditions = array();
                 $options = array('join' => XenForo_Model_Thread::FETCH_FIRSTPOST,
@@ -149,7 +146,18 @@
             </div>
         </div>
         <div id='footer'>
-        <!-- TODO: Footer here-->
+        <!-- (TODO) Footer here-->
         </div>
+        <script src='assets/scripts/jquery-1.11.2.min.js'></script>
+        <script src='assets/scripts/script.js'></script>
     </body>
 </html>
+<!--(TODO) Needs work and must be fixed -->
+<?php
+
+    $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
+
+    $servers = $herodevModel->getAllMinecraftServers();
+    echo $servers[1]['query_data']; //get online players (TODO)
+
+?>

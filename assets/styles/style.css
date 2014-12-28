@@ -158,6 +158,7 @@ body
     background-color: rgba(0, 0, 0, .5);
 
     -khtml-border-radius: 10px;
+    margin-bottom:10px;
 }
 .button
 {
@@ -277,6 +278,7 @@ ul
 .status-name
 {
     float: left;
+    cursor: pointer;
 }
 #footer
 {

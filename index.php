@@ -15,7 +15,7 @@
         <div class='navbar'>
             <ul class='nav'>
                 <li><a href='#'>HOME</a></li>
-                <li><a href='/forums/'>FORUMS</a></li>
+                <li><a href='forums'>FORUMS</a></li>
                 <li><a href='#'>DONATE</a></li>
                 <li><a href='#'>MEDIA</a></li>
                 <li><a href='#'>RESOURCES</a></li>
@@ -58,22 +58,28 @@
                     if ($user_id != null) {
                         
                         $userModel = XenForo_Model::create('XenForo_Model_User');
-                        $trophyModel = Xenforo_Model::create('Xenforo_Model_Trophy');
+                        //$trophyModel = Xenforo_Model::create('Xenforo_Model_Trophy');
                         
-                        $trophycount = $trophyModel->countTrophiesForUserId(1);
+                        //$trophycount = $trophyModel->countTrophiesForUserId(1);
                         $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
 
                         echo '<img class="avatar" src="/forums/'.$avatarUrl.'">';
                         echo '<a href="/forums/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
                         
                         echo '<ul class="userstats">';
-                        echo '<li>Messages: '.$trophycount.'</li>'; //messages (TODO)
-                        echo '<li>Likes: '.$trophycount.'</li>'; //Likes (TODO)
-                        echo '<li>Points: '.$trophycount.'</li>'; //trophy points
+                        //echo '<li>Messages: '.$trophycount.'</li>'; //messages (TODO)
+                        //echo '<li>Likes: '.$trophycount.'</li>'; //Likes (TODO)
+                        //echo '<li>Points: '.$trophycount.'</li>'; //trophy points
 
                     } else {
                         echo "<div class='button'>JOIN US</div>";
                     }  
+/*
+                    if ($visitor->isStaff)
+                    {
+                     echo "<h1>kewl</h1>";
+                    }
+*/
                 ?>
                 </ul>
             </div>

@@ -20,7 +20,7 @@ body
 }
 .nav
 {
-    position: absolute;
+    position: fixed;
     top: -20;
     left: 0;
 
@@ -91,8 +91,6 @@ body
 }
 .news
 {
-    position: absolute;
-
     width: 800px;
     height: auto;
     margin: 10px;
@@ -143,12 +141,14 @@ body
     font: 600 18.46px Raleway;
 
     position: absolute;
+    top: 200px;
     right: 20px;
 
     float: right;
 
     width: 300px;
     height: auto;
+    margin-bottom: 10px;
     padding: 10px;
 
     color: #a3a3a3;
@@ -158,7 +158,6 @@ body
     background-color: rgba(0, 0, 0, .5);
 
     -khtml-border-radius: 10px;
-    margin-bottom:10px;
 }
 .button
 {
@@ -183,6 +182,7 @@ body
 
     -khtml-border-radius: 10px;
 }
+
 .button:hover
 {
     background-color: #a73434;
@@ -204,8 +204,10 @@ h1
     border-color: #a3a3a3;
     border-radius: 25px;
 }
-.side-content,p
+.side-content
 {
+    position: relative;
+
     margin: 10px;
 }
 .ip
@@ -244,13 +246,12 @@ ul
 {
     font-size: 36px;
 
-    position: absolute;
+    right: 10px;
 
     float: right;
 
     width: 300px;
     height: 50px;
-    margin-left: 75%;
 
     color: #e4e4e4;
 }
@@ -278,6 +279,7 @@ ul
 .status-name
 {
     float: left;
+
     cursor: pointer;
 }
 #footer
@@ -396,4 +398,39 @@ a[tooltip]::after
 a[tooltip]:hover::before,a[tooltip]:hover::after
 {
     display: block;
+}
+
+/* Mobile Devices */
+@media only screen
+and (min-device-width : 100px)
+and (max-device-width : 700px)
+{
+    .sidebar
+    {
+        position: absolute;
+        top: 300px;
+        bottom: 0;
+
+        width: 90%;
+        height: 300px;
+    }
+    .side-header
+    {
+        width: 200px;
+    }
+    .side-content > p
+    {
+        display: inline-block;
+    }
+    .news
+    {
+        position: absolute;
+        top: 1200px;
+
+        width: 100%;
+        height: auto;
+    }
+    body
+    {
+    }
 }

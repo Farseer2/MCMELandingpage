@@ -1,4 +1,27 @@
 <?php
+/*
+    Functions
+*/
+    function logError($message)
+    {
+        XenForo_Session::startPublicSession();
+        $visitor = XenForo_Visitor::getInstance();
+        $user_id = $visitor->getUserId();
+        
+        $date = new DateTime();
+        $time = $date->format('Y-m-d H:i:s');
+        
+        if($visitor["user_id"] != 0) 
+        {
+            $prefix = "[".$time."][".$visitor["username"]." (".$visitor["user_id"].")]";
+        }
+        else
+        {
+            $prefix = "[".$time."][Visitor (0)]";
+        }
+
+        error_log($prefix.$message.PHP_EOL, 3, "log.txt");
+    }
     function checkMojangOnline($service) 
     {
         $MojangServers = file_get_contents("http://status.mojang.com/check");
@@ -40,6 +63,11 @@
         $status = ($fp ? "online" :
                          "offline");
         return $status;
+        
+        if($status == "offline")
+        {
+            logError("Couldn't make a connection with the 'Freebuild".$server."' server it may be offline or wrongly configured.");
+        }
     }
     function getOnlinePlayers($query_data) 
     {
@@ -85,19 +113,28 @@
         $herodevModel->queryMinecraftServer($server);
         
         $players = getOnlinePlayers($servers[$server]['query_data']); 
-
-        foreach(array_slice($players,0,5) as $player) 
+        
+        if (count($players) != 0) 
         {
-        
-            echo '<a tooltip="'.$player.'"><img class="player-pic" src="http://skin.mcme.co/avatar/'.$player.'"></a>';
-        }
-        $playerNum = count($players);
-        $imgDisplay = 5;
-        $moreInList = $playerNum - $imgDisplay;
-        
-        if (count($players) > 5) { echo '<a class="link"><p>And '.$moreInList.' more..</p></a>';}
+            foreach(array_slice($players,0,5) as $player) 
+            {
 
+                echo '<a tooltip="'.$player.'"><img class="player-pic" src="http://skin.mcme.co/avatar/'.$player.'"></a>';
+            }
+            $playerNum = count($players);
+            $imgDisplay = 5;
+            $moreInList = $playerNum - $imgDisplay;
+
+            if (count($players) > 5) { echo '<a class="link"><p>And '.$moreInList.' more..</p></a>';}
+        }
+        else
+        {
+            echo "<p>No Players online</p>";
+        }
     }
+/*
+    Variables
+*/
     $freebuildStatus = checkMCServerOnline('freebuild.mcmiddleearth.com');
     $buildStatus = checkMCServerOnline('build.mcmiddleearth.com');
 ?>

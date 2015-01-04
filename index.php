@@ -1,11 +1,14 @@
+<?php require_once('includes/functions.php'); ?>
 <?php
     $startTime = microtime(true);
     $kotomi_indexFile = "../";
     $kotomi_container = true;
     $fileDir = dirname(__FILE__)."/{$kotomi_indexFile}";
     require "{$fileDir}/library/Dark/Kotomi/KotomiHeader.php";
+
+    $freebuildStatus = checkMCServerOnline('freebuild.mcmiddleearth.com');
+    $buildStatus = checkMCServerOnline('build.mcmiddleearth.com');
 ?>
-<?php require_once('includes/functions.php'); ?>
 <html>
     <head>
         <link rel='stylesheet' href='assets/styles/style.css'>

@@ -6,7 +6,6 @@
     {
         XenForo_Session::startPublicSession();
         $visitor = XenForo_Visitor::getInstance();
-        $user_id = $visitor->getUserId();
         
         $date = new DateTime();
         $time = $date->format('Y-m-d H:i:s');
@@ -66,7 +65,7 @@
         
         if($status == "offline")
         {
-            logError("Couldn't make a connection with the 'Freebuild".$server."' server it may be offline or wrongly configured.");
+            logError("Couldn't establish a connection with the '".$server."' server it may be offline or wrongly configured.");
         }
     }
     function getOnlinePlayers($query_data) 
@@ -132,9 +131,4 @@
             echo "<p>No Players online</p>";
         }
     }
-/*
-    Variables
-*/
-    $freebuildStatus = checkMCServerOnline('freebuild.mcmiddleearth.com');
-    $buildStatus = checkMCServerOnline('build.mcmiddleearth.com');
 ?>

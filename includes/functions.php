@@ -1,25 +1,26 @@
+<?php include_once('config.php'); ?>
 <?php
 /*
     Functions
 */
-    function logError($message)
+    function Logger($type,$message)
     {
-        XenForo_Session::startPublicSession();
-        $visitor = XenForo_Visitor::getInstance();
-        
         $date = new DateTime();
         $time = $date->format('Y-m-d H:i:s');
         
-        if($visitor["user_id"] != 0) 
-        {
-            $prefix = "[".$time."][".$visitor["username"]." (".$visitor["user_id"].")]";
-        }
-        else
-        {
-            $prefix = "[".$time."][Visitor (0)]";
-        }
+        $version = "[".getVersion()."]";
+            
+        if (strtolower($type) == "n" || strtolower($type) == "notice"):
+            $prefix = "[NOTICE]";
 
-        error_log($prefix.$message.PHP_EOL, 3, "log.txt");
+        elseif (strtolower($type) == "e" || strtolower($type) == "error"):
+            $prefix = "[ERROR]";
+
+        elseif (strtolower($type) == "i" || strtolower($type) == "info"):
+            $prefix = "[INFO]";
+        endif;
+
+        error_log($version.$prefix.$message.PHP_EOL, 3, "log/log.txt");
     }
     function checkMojangOnline($service) 
     {
@@ -65,7 +66,7 @@
         
         if($status == "offline")
         {
-            logError("Couldn't establish a connection with the '".$server."' server it may be offline or wrongly configured.");
+            Log("Couldn't establish a connection with the '".$server."' server it may be offline or wrongly configured.");
         }
     }
     function getOnlinePlayers($query_data) 
@@ -130,5 +131,45 @@
         {
             echo "<p>No Players online</p>";
         }
+    }
+    function getVersion()
+    {
+        $version = file_get_contents("https://raw.githubusercontent.com/aaldim1/MCMELandingpage/master/VERSION");
+        
+        return $version;
+    }
+    function getSetting($column,$setting) //get a single Setting
+    {
+        global $mysqli;
+        
+        $result = $mysqli->query("SELECT $column
+                                FROM settings
+                                WHERE name='$setting'")->fetch_object()->info;  
+        
+        return $result;
+    }
+    function setSetting($column,$setting,$info) //only used for installing & updating
+    {
+        global $mysqli;
+        
+        $mysqli->query("INSERT INTO settings ($column) 
+                        VALUES ('$setting','$info')");
+    }
+    function updateSetting($columns=array(),$setting,$info) //used in admin & staff panel
+    {
+        global $mysqli;
+
+        $results = $mysqli->query("UPDATE settings
+                                        SET $columns[1]='$info'
+                                        WHERE $columns[0]='$setting'");
+/*
+        if($results)
+        {
+            print 'Success! record updated / deleted'; 
+        }else
+        {
+            print 'Error : ('. $mysqli->errno .') '. $mysqli->error;
+        }
+*/
     }
 ?>

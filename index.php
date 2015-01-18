@@ -1,4 +1,5 @@
 <?php require_once('includes/functions.php'); ?>
+<?php require_once('includes/config.php'); ?>
 <?php
     $startTime = microtime(true);
     $kotomi_indexFile = "../";
@@ -12,25 +13,16 @@
 <html>
     <head>
         <link rel='stylesheet' href='assets/styles/style.css'>
-        <title>Minecraft Middle Earth | Home</title>
+        <link rel='stylesheet' href='assets/styles/nav.css'>
+        <title><?php echo getSetting("info","subHeader");?> | Home</title>
     </head>
     <body>
-        <div class='navbar'>
-            <ul class='nav'>
-                <li><a href='#'>HOME</a></li>
-                <li><a href='forums'>FORUMS</a></li>
-                <li><a href='#'>DONATE</a></li>
-                <li><a href='#'>MEDIA</a></li>
-                <li><a href='#'>RESOURCES</a></li>
-                <li><a href='#'>WIKI</a></li>
-                <li><a href='#'>NEW PLAYERS</a></li>
-            </ul>
-        </div>
+        <?php include_once("includes/nav.php"); ?>
     <h3 id='desc' class='screenshot-placename'>Glittering Caves</h3>
         <div class='header'>
             <img class='logo' src='assets/images/Icons/logo.png'>
-            <h1 class='header1'>MCME</h1>
-            <h2 class='header2'>minecraft middle earth</h2>
+            <h1 class='header1'><?php echo getSetting("info","Header");?></h1>
+            <h2 class='header2'><?php echo getSetting("info","subHeader");?></h2>
         </div>
         <div class='news'>
             <?php
@@ -38,7 +30,7 @@
                 $threadModel = XenForo_Model::create('XenForo_Model_Thread');
                 $conditions = array();
                 $options = array('join' => XenForo_Model_Thread::FETCH_FIRSTPOST,
-                                'limit' => 2);
+                                'limit' => getSetting("info","threadLimit"));
                 $threads = $threadModel->getThreadsInForum(2, $conditions, $options);
                 foreach ($threads AS $threadId => $thread) {
                     if ($threadModel->canViewThread($thread,$thread) && $thread['cta_ft_featured'] == 1) {
@@ -156,6 +148,6 @@
         <!-- (TODO) Footer here-->
         </div>
         <script src='assets/scripts/jquery-1.11.2.min.js'></script>
-        <script src='assets/scripts/script.js'></script>
+        <?php include_once("assets/scripts/script.php"); ?>
     </body>
 </html>

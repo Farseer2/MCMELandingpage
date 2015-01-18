@@ -1,0 +1,123 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+
+    overflow-x: hidden;
+
+    color: #fff;
+    background: url(../images/bg/1.png) no-repeat center center fixed;
+    background-position: center;
+    background-size: cover;
+}
+label
+{
+    height: auto;
+    font-weight: bold;
+}
+.row
+{
+    position: relative;
+    z-index: 1;
+
+    max-width: 800px;
+    height: 1000px;;
+    margin: 0 auto;
+    padding: 60px 30px;
+
+    text-align: center;
+
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: rgba(0, 0, 0, .5);;
+    top:100px;
+}
+.row span
+{
+    position: relative;
+
+    display: inline-block;
+    float: left;
+    clear: both;
+
+    margin: 10px 10px;
+}
+.slide
+{
+    font-family: 'Open Sans', sans;
+    font-weight: 400;
+
+    display: inline;
+
+    width: 215px;
+    padding: 10px 0 10px 15px;
+
+    transition: all .3s ease-in-out;
+    text-indent: 70px;
+
+    color: #377d6a;
+    border: 0;
+    border-radius: 3px;
+    outline: 0;
+    background: #efefef;
+}
+.slide::-webkit-input-placeholder
+{
+    font-weight: 300;
+
+    text-indent: 0;
+
+    color: #efefef;
+}
+.slide + label
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: inline-block;
+
+    padding: 10px 15px;
+
+    transition: all .3s ease-in-out;
+
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background: #7ab893;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, .4);
+}
+
+.slide:focus,
+.basic-slide:active
+{
+    text-indent: 0;
+
+    color: #377d6a;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #fff;
+}
+.slide:focus::-webkit-input-placeholder,
+.slide:active::-webkit-input-placeholder
+{
+    color: #aaa;
+}
+.slide:focus + label,
+.slide:active + label
+{
+    transform: translateX(-100%);
+}
+.admin + label
+{
+    background-color: #af3333;
+}
+.settings
+{
+    width: 20%;
+    margin: 0 auto;
+    display: table;
+    text-align: center;
+}

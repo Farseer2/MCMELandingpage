@@ -119,7 +119,7 @@
             foreach(array_slice($players,0,5) as $player) 
             {
 
-                echo '<a tooltip="'.$player.'"><img class="player-pic" src="http://skin.mcme.co/avatar/'.$player.'"></a>';
+                echo '<a tooltip="'.$player.'"><img class="player-pic" src="https://minotar.net/cube/'.$player.'/100.png"></a>';
             }
             $playerNum = count($players);
             $imgDisplay = 5;

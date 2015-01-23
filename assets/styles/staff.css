@@ -14,16 +14,18 @@ body
 }
 label
 {
-    height: auto;
     font-weight: bold;
+
+    height: auto;
 }
 .row
 {
     position: relative;
     z-index: 1;
+    top: 100px;
 
     max-width: 800px;
-    height: 1000px;;
+    height: 1000px;
     margin: 0 auto;
     padding: 60px 30px;
 
@@ -32,8 +34,7 @@ label
     -webkit-border-radius: 10px;
        -moz-border-radius: 10px;
             border-radius: 10px;
-    background-color: rgba(0, 0, 0, .5);;
-    top:100px;
+    background-color: rgba(0, 0, 0, .5);;;
 }
 .row span
 {
@@ -116,8 +117,10 @@ label
 }
 .settings
 {
+    display: table;
+
     width: 20%;
     margin: 0 auto;
-    display: table;
+
     text-align: center;
 }

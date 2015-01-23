@@ -27,3 +27,13 @@
     changeBackground();
 })();
 </script>
+<script>
+var globalModal = $('.modal');
+    $( ".button" ).on( "click", function(e) {
+      e.preventDefault();
+      $( globalModal ).toggleClass('modal-show');
+    });
+    $( ".overlay" ).on( "click", function() {
+      $( globalModal ).toggleClass('modal-show');
+    });
+</script>

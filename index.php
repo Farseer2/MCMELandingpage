@@ -7,8 +7,12 @@
     $fileDir = dirname(__FILE__)."/{$kotomi_indexFile}";
     require "{$fileDir}/library/Dark/Kotomi/KotomiHeader.php";
 
-    $freebuildStatus = checkMCServerOnline('freebuild.mcmiddleearth.com');
-    $buildStatus = checkMCServerOnline('build.mcmiddleearth.com');
+    $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
+    $server1 = $herodevModel->getMinecraftServerById(1);
+    $server2 = $herodevModel->getMinecraftServerById(2);
+
+    $freebuildStatus = checkMCServerOnline($server1['address']);
+    $buildStatus = checkMCServerOnline($server2['address']);
 ?>
 <html>
     <head>
@@ -47,9 +51,6 @@
         <div class='sidebar'>
             <div class="user-info">
                 <?php
-                    XenForo_Session::startPublicSession();
-                    $visitor = XenForo_Visitor::getInstance();
-                    $user_id = $visitor->getUserId();
                     if ($user_id != null) {
                         
                         $userModel = XenForo_Model::create('XenForo_Model_User');
@@ -69,12 +70,6 @@
                     } else {
                         echo "<div class='button'>JOIN US</div>";
                     }  
-/*
-                    if ($visitor->isStaff)
-                    {
-                     echo "<h1>kewl</h1>";
-                    }
-*/
                 ?>
                 </ul>
             </div>
@@ -82,7 +77,7 @@
             <div class='side-content'>
                 <div class='server-status'>
                     <div class='status-row'>
-                        <a tooltip="build.mcmiddleearth.com"><p class='status-name'>Build</p></a>
+                        <a tooltip="<?php echo $server1['address']; ?>"><p class='status-name'><?php echo $server1['name']; ?></p></a>
                         <p class='<?php if($buildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
                     </div>
                     <div class='status-row'>
@@ -93,7 +88,7 @@
                         </div>
                     </div>
                     <div class='status-row'>
-                        <a tooltip="freebuild.mcmiddleearth.com"><p class='status-name'>Freebuild</p></a>
+                        <a tooltip="<?php echo $server2['address']; ?>"><p class='status-name'><?php echo $server2['name']; ?></p></a>
                         <p class='<?php if($freebuildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
                     </div>
                     <div class='status-row'>
@@ -147,6 +142,33 @@
         <div id='footer'>
         <!-- (TODO) Footer here-->
         </div>
+<!--MODAL-->
+          <div class="modal">
+           <div class="overlay"></div>
+           <div class="modal_contents modal-transition">
+            <div class="modal-header">
+              <span class="close"> X </span>
+              <img class="logo" src="http://www.mcmiddleearth.com/styles/uix/uix/logo.png">
+              <h3>Welcome to MCME!</h3>
+            </div>
+            <div class="modal-body">
+              <div class="content-left">
+              <h3>How to join the server?</h3>
+              <p>blah blah blah</p>
+                <ol>
+                  <li>Buildserver</li>
+                  <li>Freebuildserver</li>
+                  <li></li>
+                </ol>
+              </div>
+              <div class="content-right">
+                <h3>How to get into Middle Earth?</h3>
+               <p>Information for the quiz... blah blah</p>
+             </div>
+           </div>
+         </div>
+        </div>
+<!--//MODAL-->
         <script src='assets/scripts/jquery-1.11.2.min.js'></script>
         <?php include_once("assets/scripts/script.php"); ?>
     </body>

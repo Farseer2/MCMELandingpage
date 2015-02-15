@@ -1,11 +1,17 @@
 <?php require_once('includes/functions.php'); ?>
 <?php require_once('includes/config.php'); ?>
 <?php
+error_reporting(0);
     $startTime = microtime(true);
-    $kotomi_indexFile = "../";
-    $kotomi_container = true;
-    $fileDir = dirname(__FILE__)."/{$kotomi_indexFile}";
-    require "{$fileDir}/library/Dark/Kotomi/KotomiHeader.php";
+    $fileDir = '../';
+
+    require($fileDir . '/library/XenForo/Autoloader.php');
+    XenForo_Autoloader::getInstance()->setupAutoloader($fileDir . '/library');
+
+    XenForo_Application::initialize($fileDir . '/library', $fileDir);
+    XenForo_Application::set('page_start_time', $startTime);
+
+    XenForo_Session::startPublicSession();
 
     $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
     $server1 = $herodevModel->getMinecraftServerById(1);
@@ -54,18 +60,16 @@
                     if ($user_id != null) {
                         
                         $userModel = XenForo_Model::create('XenForo_Model_User');
-                        //$trophyModel = Xenforo_Model::create('Xenforo_Model_Trophy');
-                        
-                        //$trophycount = $trophyModel->countTrophiesForUserId(1);
+
                         $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
 
-                        echo '<img class="avatar" src="/forums/'.$avatarUrl.'">';
-                        echo '<a href="/forums/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
+                        echo '<img class="avatar" src="/'.$avatarUrl.'">';
+                        echo '<a href="/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
                         
                         echo '<ul class="userstats">';
-                        //echo '<li>Messages: '.$trophycount.'</li>'; //messages (TODO)
-                        //echo '<li>Likes: '.$trophycount.'</li>'; //Likes (TODO)
-                        //echo '<li>Points: '.$trophycount.'</li>'; //trophy points
+                        echo '<li>Messages: '.$visitor['message_count'].'</li>'; 
+                        echo '<li>Likes: '.$visitor['like_count'].'</li>'; 
+                        echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
 
                     } else {
                         echo "<div class='button'>JOIN US</div>";
@@ -102,14 +106,31 @@
                 <div class='side-header'>Staff Online Now</div>
                 <div class='staff-list'>
                     <ul>
-                        <li><img class='staff-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/43.jpg?1394287711'>MaDIIReD<p class='staff'></p></li>
-                        <li><img class='staff-pic' src='http://www.mcmiddleearth.com/data/avatars/l/0/5.jpg?1414188440'>Ghundra<p class='staff'></p></li>
+                        <?php 
+                            $sessionModel = XenForo_Model::create('XenForo_Model_Session');
+
+                            $onlineUsers = $sessionModel->getSessionActivityQuickList(
+                                $visitor->toArray(),
+                                array('cutOff' => array('>', $sessionModel->getOnlineStatusTimeout())),
+                                ($visitor['user_id'] ? $visitor->toArray() : null)
+                            );
+                            foreach($onlineUsers['records'] as $user) 
+                            {
+                                $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($user, 'm', null, false));
+                                $url = "/index.php?members/".$user['user_id']."";
+                                
+                                if($user['is_staff'] == true) 
+                                {
+                                    echo "<li><img class='staff-pic' src='/$avatarUrl'><a href=".$url." class='link'>".$user['username']."</a><p class='staff'></p></li>";
+                                }
+                            }
+                        ?>
                     </ul>
                 </div>
                 <div class='side-header'>Jobs</div>
-                <div class='jobs'>
-                    <p class='job'>RoadJob1</p><p class='ip'>Public</p>
-                </div>
+                    <div class="jobs">
+                        <?php fetchJobs(); ?>
+                    </div>
                 <div class='side-header'>Mojang</div>
                 <div clas='services'>
                     <div class='status-row'>
@@ -145,28 +166,28 @@
 <!--MODAL-->
           <div class="modal">
            <div class="overlay"></div>
-           <div class="modal_contents modal-transition">
-            <div class="modal-header">
-              <span class="close"> X </span>
-              <img class="logo" src="http://www.mcmiddleearth.com/styles/uix/uix/logo.png">
-              <h3>Welcome to MCME!</h3>
-            </div>
-            <div class="modal-body">
-              <div class="content-left">
-              <h3>How to join the server?</h3>
-              <p>blah blah blah</p>
-                <ol>
-                  <li>Buildserver</li>
-                  <li>Freebuildserver</li>
-                  <li></li>
-                </ol>
-              </div>
-              <div class="content-right">
-                <h3>How to get into Middle Earth?</h3>
-               <p>Information for the quiz... blah blah</p>
+               <div class="modal_contents modal-transition">
+                <div class="modal-header">
+                  <span class="close"> X </span>
+                  <img class="logo" src="http://www.mcmiddleearth.com/styles/uix/uix/logo.png">
+                  <h3>Welcome to MCME!</h3>
+                </div>
+                <div class="modal-body">
+                  <div class="content-left">
+                  <h3>How to join the server?</h3>
+                  <p>blah blah blah</p>
+                    <ol>
+                      <li>Buildserver</li>
+                      <li>Freebuildserver</li>
+                      <li></li>
+                    </ol>
+                  </div>
+                  <div class="content-right">
+                    <h3>How to get into Middle Earth?</h3>
+                   <p>Information for the quiz... blah blah</p>
+                 </div>
+               </div>
              </div>
-           </div>
-         </div>
         </div>
 <!--//MODAL-->
         <script src='assets/scripts/jquery-1.11.2.min.js'></script>

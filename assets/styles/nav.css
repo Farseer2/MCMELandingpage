@@ -45,3 +45,25 @@
 {
     float: right;
 }
+/* NO NAVBAR STYLES */
+.button
+{
+    cursor: pointer;
+    -webkit-transition: background-color ease-in-out .3s;
+       -moz-transition: background-color ease-in-out .3s;
+         -o-transition: background-color ease-in-out .3s;
+            transition: background-color ease-in-out .3s;
+    text-align: center;
+
+    color: #a3a3a3;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #803b3b;
+
+    -khtml-border-radius: 10px;
+}
+.button:hover
+{
+    background-color: #a73434;
+}

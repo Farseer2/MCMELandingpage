@@ -3,12 +3,18 @@
 /*
     Functions
 */
-    function Logger($type,$message)
+    /**
+     * Logger
+     *
+     * Logs errors to the log file.
+     *
+     * @param type Type of the error: notice, error, or info.
+     * @param message Message for the log.
+     */
+    function Logger($type,$message) //currently no longer used (TODO)
     {
         $date = new DateTime();
         $time = $date->format('Y-m-d H:i:s');
-        
-        $version = "[".getVersion()."]";
             
         if (strtolower($type) == "n" || strtolower($type) == "notice"):
             $prefix = "[NOTICE]";
@@ -20,8 +26,16 @@
             $prefix = "[INFO]";
         endif;
 
-        error_log($version.$prefix.$message.PHP_EOL, 3, "log/log.txt");
+        error_log($prefix.$message.PHP_EOL, 3, "log/log.txt");
     }
+    /**
+     * checkMojangOnline
+     *
+     * Checks if a Mojang service is online or offline.
+     *
+     * @param service Mojang service: website, skin, login or session.
+     * @return green or red (online or offline)
+     */
     function checkMojangOnline($service) 
     {
         $MojangServers = file_get_contents("http://status.mojang.com/check");
@@ -55,7 +69,19 @@
         {
             return "red";
         }
+        else
+        {
+            return "An error occoured.";
+        }
     }
+    /**
+     * checkMCServerOnline
+     *
+     * Checks if a Minecraft Server is online.
+     *
+     * @param server Minecraft server IP.
+     * @return online or offline.
+     */
     function checkMCServerOnline($server) 
     {
         $server_port = 25565;
@@ -69,6 +95,14 @@
             Log("Couldn't establish a connection with the '".$server."' server it may be offline or wrongly configured.");
         }
     }
+    /**
+     * getOnlinePlayers
+     *
+     * Get online players from a Minecraft server.
+     *
+     * @param query_data Data from the HeroCraft addon.
+     * @return Online players.
+     */
     function getOnlinePlayers($query_data) 
     {
         $data = explode(':',$query_data,3);
@@ -105,6 +139,14 @@
         }
         return $resplayers;
     }
+    /**
+     * getPlayerList
+     *
+     * Get online player list from a Minecraft server.
+     *
+     * @param server Minecraft server IP.
+     * @return Online player list.
+     */
     function getPlayerList($server)
     {
         $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
@@ -116,28 +158,56 @@
         
         if (count($players) != 0) 
         {
+            echo "<div id='$server' class='plist'>";
+                
             foreach(array_slice($players,0,5) as $player) 
             {
 
                 echo '<a tooltip="'.$player.'"><img class="player-pic" src="https://minotar.net/cube/'.$player.'/100.png"></a>';
             }
+            echo "</div>";
+            echo "<div id='$server' class='fullplist'>";
+            
+            foreach($players as $player) 
+            {
+
+                echo '<a tooltip="'.$player.'"><img class="player-pic" src="https://minotar.net/cube/'.$player.'/100.png"></a>';
+            }
+            echo "</div>";
+            
             $playerNum = count($players);
             $imgDisplay = 5;
             $moreInList = $playerNum - $imgDisplay;
 
-            if (count($players) > 5) { echo '<a class="link"><p>And '.$moreInList.' more..</p></a>';}
+            if (count($players) > 5) { echo "<div id='$server' class='showplist'><a class='link'><p>And $moreInList more..</p></a></div>";}
         }
         else
         {
             echo "<p>No Players online</p>";
         }
     }
-    function getVersion()
+    /**
+     * checkVersion
+     *
+     * Get latest version from Github.
+     *
+     * @return Current (stable) version from Github.
+     */
+    function checkVersion()
     {
         $version = file_get_contents("https://raw.githubusercontent.com/aaldim1/MCMELandingpage/master/VERSION");
         
         return $version;
     }
+    /**
+     * getSetting
+     *
+     * Get setting from the database.
+     * 
+     * @param column Select which column.
+     * @param setting Select setting.
+     * @return The requested value.
+     */
     function getSetting($column,$setting) //get a single Setting
     {
         global $mysqli;
@@ -162,14 +232,72 @@
         $results = $mysqli->query("UPDATE settings
                                         SET $columns[1]='$info'
                                         WHERE $columns[0]='$setting'");
-/*
-        if($results)
-        {
-            print 'Success! record updated / deleted'; 
-        }else
-        {
-            print 'Error : ('. $mysqli->errno .') '. $mysqli->error;
-        }
-*/
     }
-?>
+    function addJob($jobname, $jobinfo, $joblink, $jobwarp, $expiration)
+    {
+        global $mysqli;
+        
+        $mysqli->query("INSERT INTO jobs (name,info,link,warp,expiration) 
+                        VALUES ('$jobname','$jobinfo','$joblink','$jobwarp','$expiration')");
+    }
+    function fetchJobs()
+    {
+        global $mysqli;
+        
+        $result = $mysqli->query("SELECT * FROM jobs ORDER BY `expiration` ASC");
+        
+        if ($result->num_rows == 0)
+        {
+            echo "<div>No jobs could be found.</div>";
+        }
+        if($result)
+        {
+            while($row=mysqli_fetch_array($result))
+            {  
+                echo '<div class="job-title">'.$row["name"].'</div>';
+                echo '<a href="'.$row["link"].'"><div class="job-link link">Post link</div></a>';
+                echo '<div class="job-info">'.$row["info"].'</div>';
+                echo '<div class="job-warp">'.$row["warp"].'</div>';
+                
+                if ($row['expiration'] <= date('Y-m-d'))
+                {
+                    echo "<div class='expiration'>ends: <div class='red'>expired</div></div>";
+                    $expired = true;
+                }
+                $date = new DateTime('tomorrow');
+                if ($row['expiration'] == $date->format('Y-m-d'))
+                {
+                    echo "<div class='expiration'>ends: <div class='orange'>Tomorrow</div></div>";
+                    $expired = false;
+                }
+                if ($row['expiration'] >= date('Y-m-d'))
+                {
+                    echo "<div class='expiration'>ends: <div class='green'>".$row['expiration']."</div></div>";
+                    $expired = false;
+                }
+                echo "<div class='separater'></div>";
+            }
+        }
+    }
+    function getVersion() 
+    {
+        $version = file_get_contents("log/log.txt");
+        
+        return $version;
+    }
+    function resetDatabase($db)
+    {
+        global $mysqli;
+        
+        $mysqli->query('SET foreign_key_checks = 0');
+        if ($result = $mysqli->query("SHOW TABLES"))
+        {
+            while($row = $result->fetch_array(MYSQLI_NUM))
+            {
+                $mysqli->query('DROP TABLE IF EXISTS '.$row[0]);
+            }
+        }
+
+        $mysqli->query('SET foreign_key_checks = 1');
+        $mysqli->close();
+    }

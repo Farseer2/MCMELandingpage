@@ -19,7 +19,7 @@
                     }
                     else
                     {
-                        echo '<li class="right"><a href="/forums/index.php?members/'.$user_id.'">'.$visitor["username"].'</a></li>';
+                        echo '<li class="right"><a href="/index.php?members/'.$user_id.'">'.$visitor["username"].'</a></li>';
                     }
                 ?>
             </ul>

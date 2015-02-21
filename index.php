@@ -73,7 +73,7 @@ error_reporting(0);
                             echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
 
                         } else {
-                            echo "<div class='button'>JOIN US</div>";
+                            echo "<a href='http://www.mcmiddleearth.com/faq/'><div class='button modal-button'>JOIN US</div></a>";
                         }  
                     ?>
                     </ul>
@@ -180,19 +180,24 @@ error_reporting(0);
             <div class="footer-left">
                 <h3>About Us</h3>
                 <p>Our community recreates the world of Middle Earth as described by J.R.R. Tolkien's books. Through online collaboration between people of different countries and of all ages, we build that world block by block within a Minecraft server.</p>
+                <p class="credits">Forum software:          <a href="https://xenforo.com/" class="link">xenforo</a></p>
+                <p class="credits">Home page Designers:</br><a href="http://www.mcmiddleearth.com/members/aaldim.112/" class="link">Aaldim</a>, 
+                                                            <a href="http://www.mcmiddleearth.com/members/ivan1pl.19/" class="link">Ivan1pl</a>,
+                                                            <a href="http://www.mcmiddleearth.com/members/dallen.1020/" class="link">Dallen</a</p>
             </div>
             <div class="footer-middle">
                 <h3>Contact Us</h3>
-<p>The administrator of the project is q220. 
-For inquires or questions, please direct yourself to q220, or use the Contact Us page.
-    Contact administrator</p>
+                <p>The administrator of the project is  <a href="http://www.mcmiddleearth.com/members/q220.1/" class="link">q220</a>. 
+For inquires or questions, please direct yourself to    <a href="http://www.mcmiddleearth.com/members/q220.1/" class="link">q220</a>, or use the 
+                                                        <a href="http://www.mcmiddleearth.com/misc/contact" class="link">Contact Us</a> page.
+                                                        <a href="http://www.mcmiddleearth.com/misc/contact" class="link">Contact Administrator</a></p>
 
 
-<p>A list of the current Staff members can be found under the Staff Members</p>
+<p>A list of the current Staff members can be found under the <a href="http://www.mcmiddleearth.com/members/?type=staff" class="link">Staff Members</a></p>
             </div>
             <div class="footer-right">
                 <h3>Support Us</h3>
-                <p>This community has no income whatsoever through advertisements or selling products. While hosting a website and game server not only requires a massive time investment to maintain, it also costs a lot of money. You can help us by making a voluntary donation towards the Community Costs to help keep the community stay alive.</p>
+                <p>This community has no income whatsoever through advertisements or selling products. While hosting a website and game server not only requires a massive time investment to maintain, it also costs a lot of money. You can help us by making a voluntary donation towards the Community Costs to help keep the community stay alive.</p><a href="http://www.mcmiddleearth.com/donate/"><div class='button donate'>Donate to us!</div></a>
             </div>
         </div>
 <!--MODAL-->

@@ -52,14 +52,15 @@ else
 </script>
 <!--MODAL-->
 <script>
-var modal = $('.modal');
-    $( ".button" ).on( "click", function(e) {
+/*var modal = $('.modal');
+    $( ".modal-button" ).on( "click", function(e) {
       e.preventDefault();
       $( modal ).toggleClass('modal-show');
     });
     $( ".overlay" ).on( "click", function() {
       $( modal ).toggleClass('modal-show');
-    });
+    });*/ 
+    // (TODO) this ^^
     
     // (TODO) simplify this code :/
     $( "#1.showplist" ).on( "click", function(e) {

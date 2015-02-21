@@ -8,8 +8,8 @@
      *
      * Logs errors to the log file.
      *
-     * @param type Type of the error: notice, error, or info.
-     * @param message Message for the log.
+     * @param string Type of the error: notice, error, or info.
+     * @param string Message for the log.
      */
     function Logger($type,$message) //currently no longer used (TODO)
     {
@@ -33,8 +33,8 @@
      *
      * Checks if a Mojang service is online or offline.
      *
-     * @param service Mojang service: website, skin, login or session.
-     * @return green or red (online or offline)
+     * @param string Mojang service: website, skin, login or session.
+     * @return string or red (online or offline)
      */
     function checkMojangOnline($service) 
     {
@@ -79,8 +79,8 @@
      *
      * Checks if a Minecraft Server is online.
      *
-     * @param server Minecraft server IP.
-     * @return online or offline.
+     * @param string Minecraft server IP.
+     * @return string or offline.
      */
     function checkMCServerOnline($server) 
     {
@@ -101,7 +101,7 @@
      * Get online players from a Minecraft server.
      *
      * @param query_data Data from the HeroCraft addon.
-     * @return Online players.
+     * @return string players.
      */
     function getOnlinePlayers($query_data) 
     {
@@ -144,8 +144,8 @@
      *
      * Get online player list from a Minecraft server.
      *
-     * @param server Minecraft server IP.
-     * @return Online player list.
+     * @param string Minecraft server IP.
+     * @return string player list.
      */
     function getPlayerList($server)
     {
@@ -191,7 +191,7 @@
      *
      * Get latest version from Github.
      *
-     * @return Current (stable) version from Github.
+     * @return int Current (stable) version from Github.
      */
     function checkVersion()
     {
@@ -204,9 +204,9 @@
      *
      * Get setting from the database.
      * 
-     * @param column Select which column.
-     * @param setting Select setting.
-     * @return The requested value.
+     * @param string Select which column.
+     * @param string Select setting.
+     * @return string The requested value.
      */
     function getSetting($column,$setting) //get a single Setting
     {

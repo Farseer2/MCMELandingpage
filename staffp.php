@@ -32,13 +32,51 @@
             function updateSettings() //..get inputs and update the values in the database
             {
                 global $mysqli;
-
                 sleep(2);
-                header('Location: staffp.php');
+                
+                if(isset($_POST['staffSettings']) == true)
+                {
+                    $staffSettings = $_POST['staffSettings'];
+                    
+                    foreach($staffSettings as $staffSetting => $staffValue)
+                    {   
+                        if($staffValue != "")
+                        {
+                            updateSetting(array("name","info"),$staffSetting,$staffValue);
+                            header('location:staffp.php');
+                        }
+                    }
+                }    
+                if(isset($_POST['adminSettings']) == true)
+                {
+                    $adminSettings = $_POST['adminSettings'];
+                    
+                    foreach($adminSettings as $adminSetting => $adminValue)
+                    {
+                        updateSetting(array("name","info"),$adminSetting,$adminValue);
+                    }
+                }
             }
             updateSettings();
         }
-       //addJob("cool","even cooler","SO KEWL","NOT SO KEWL","2015-02-14"); 
+       if (isset($_GET['addjob']))
+       {
+           function addNewJob()
+           {   
+               global $mysqli;
+               //addJob($jobname, $jobinfo, $joblink, $jobwarp, $expiration)
+                $jobValues = $_POST['jobValues'];
+               
+                if($jobValues['name'] != "")
+                { 
+                    addJob($jobValues['name'], $jobValues['info'], $jobValues['link'], $jobValues['warp'], $jobValues['expiration']);
+                    header('location:staffp.php');
+                }
+           }
+           addNewJob();
+       }
+      // var_dump($_POST['jobValues']);
+       
 ?>
 <html>
     <head>
@@ -63,18 +101,18 @@
                     <div class="tab_content">
                         <div class="tabs_item">
                             <h4>Home</h4>
-                            <a href=""><div class="button">balalallalla</div>
+                            <a href=""><div class="button">balalallalla</div></a>
                         </div>
                         <div class="tabs_item" style="display:none;">
                             <h4>Staff settings</h4>
-                            <form name="form" action="staffp.php?update=update/#update" method="post">
+                            <form name="form" action="staffp.php?update=update" method="post">
                                 <?php
                                     $result = $mysqli->query("SELECT info,name FROM settings WHERE type='staff'");
 
                                     while($row=mysqli_fetch_array($result))
                                     {   
                                           echo '<span>
-                                            <input name="'.$row["name"].'" class="slide" type="text" placeholder="'.getSetting("info",$row["name"]).'"/><label>'.$row["name"].'</label>
+                                            <input name="staffSettings['.$row["name"].']" class="slide" type="text" placeholder="'.getSetting("info",$row["name"]).'"/><label>'.$row["name"].'</label>
                                           </span>';
                                     }
                                 ?>
@@ -84,7 +122,33 @@
                         </div>
                         <div class="tabs_item">
                             <h4>Jobs</h4>
-                            <a href=""><div class="button">balalallalla</div>
+                            <form name="form" action="staffp.php?addjob=addjob" method="post">
+                                <!--addJob($jobname, $jobinfo, $joblink, $jobwarp, $expiration)-->
+                                <div class="job-inputs">
+                                    <div class="job-input">
+                                        <label>Name:</label>
+                                        <input name="jobValues[name]" class="input" type="text" required/>
+                                    </div>
+                                    <div class="job-input">
+                                        <label>Info:</label>
+                                        <input name="jobValues[info]" class="input" type="text" required/>
+                                    </div>
+                                    <div class="job-input">
+                                        <label>Link:</label>
+                                        <input name="jobValues[link]" class="input" type="text" required/>
+                                    </div>
+                                     <div class="job-input">
+                                        <label>Warp:</label>
+                                        <input name="jobValues[warp]" class="input" type="text" required/>
+                                    </div>
+                                    <div class="job-input">
+                                        <label>Expiration:</label>
+                                        <input name="jobValues[expiration]" id="datepicker" class="input job-expiration" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
+                                <input id="add" type="submit" class="button update-settings add" value="add"></input>
+                            </form>
                         </div>
                         <div class="tabs_item">
                             <h4>Updates</h4>
@@ -102,16 +166,20 @@
                                 if ($visitor->isMemberOf(3) === true) 
                                     {
                             ?>
+                            <form name="form" action="staffp.php?update=update/#update" method="post">
                                 <?php
                                     $result = $mysqli->query("SELECT info,name FROM settings WHERE type='admin'");
 
                                     while($row=mysqli_fetch_array($result))
                                     {   
                                           echo '<span>
-                                            <input class="slide admin" type="text" placeholder="'.getSetting("info",$row["name"]).'"/><label>'.$row["name"].'</label>
+                                            <input name="adminSettings['.$row["name"].']" class="slide admin" type="text" placeholder="'.getSetting("info",$row["name"]).'"/><label>'.$row["name"].'</label>
                                           </span>';
                                     }
                                 ?>
+                                <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
+                                <input id="update" type="submit" class="button update-settings" value="update"></input>
+                            </form>
                             <?php   
                                 }
                                 else
@@ -125,6 +193,7 @@
             </div>
         </div>
         <script src='assets/scripts/jquery-1.11.2.min.js'></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
         <script>
             //tabs
             $(document).ready(function() { 
@@ -152,6 +221,10 @@
                 document.querySelector(".load-container").style.display = "block";
               });
             });
+            
+          $(function() {
+            $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' }).val()
+          });
         </script>
     </body>
 </html>

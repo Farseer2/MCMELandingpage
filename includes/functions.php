@@ -26,7 +26,7 @@
             $prefix = "[INFO]";
         endif;
 
-        error_log($prefix.$message.PHP_EOL, 3, "log/log.txt");
+        //error_log($prefix.$message.PHP_EOL, 3, "log/log.txt");
     }
     /**
      * checkMojangOnline
@@ -253,35 +253,31 @@
         if($result)
         {
             while($row=mysqli_fetch_array($result))
-            {  
-                echo '<div class="job-title">'.$row["name"].'</div>';
-                echo '<a href="'.$row["link"].'"><div class="job-link link">Post link</div></a>';
-                echo '<div class="job-info">'.$row["info"].'</div>';
-                echo '<div class="job-warp">'.$row["warp"].'</div>';
-                
-                if ($row['expiration'] <= date('Y-m-d'))
+            {   
+                if ($row['expiration'] <= date('Y-m-d') == false)
                 {
-                    echo "<div class='expiration'>ends: <div class='red'>expired</div></div>";
-                    $expired = true;
+                    echo '<div class="job-title">'.$row["name"].'</div>';
+                    echo '<a href="'.$row["link"].'"><div class="job-link link">Post link</div></a>';
+                    echo '<div class="job-info">'.$row["info"].'</div>';
+                    echo '<div class="job-warp">'.$row["warp"].'</div>';
+                    
+                    $date = new DateTime('tomorrow');
+                    if ($row['expiration'] == $date->format('Y-m-d'))
+                    {
+                        echo "<div class='expiration'>ends: <div class='orange'>Tomorrow</div></div>";
+                    }
+                    if ($row['expiration'] >= date('Y-m-d') && $row['expiration'] != $date->format('Y-m-d'))
+                    {
+                        echo "<div class='expiration'>ends: <div class='green'>".$row['expiration']."</div></div>";
+                    }
+                    echo "<div class='separater'></div>";
                 }
-                $date = new DateTime('tomorrow');
-                if ($row['expiration'] == $date->format('Y-m-d'))
-                {
-                    echo "<div class='expiration'>ends: <div class='orange'>Tomorrow</div></div>";
-                    $expired = false;
-                }
-                if ($row['expiration'] >= date('Y-m-d'))
-                {
-                    echo "<div class='expiration'>ends: <div class='green'>".$row['expiration']."</div></div>";
-                    $expired = false;
-                }
-                echo "<div class='separater'></div>";
             }
         }
     }
     function getVersion() 
     {
-        $version = file_get_contents("log/log.txt");
+        $version = file_get_contents("VERSION");
         
         return $version;
     }

@@ -4,9 +4,9 @@
         $luminance = getLuminance($filename,10);
 
         if ($luminance > 100) {
-            echo "<style>.header{color:#242424;}</style>";
+            echo "<style>.header,.screenshot-placename{color:#242424;}</style>";
         } else {
-            echo "<style>.header{color:#e4e4e4;}</style>";
+            echo "<style>.header,.screenshot-placename{color:#e4e4e4;}</style>";
         }
 
     function getLuminance($filename, $num_samples=10) 

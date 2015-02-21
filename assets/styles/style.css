@@ -33,7 +33,7 @@ a:-webkit-any-link
 
     width: 100% !important;
     height: 50px;
-    margin: 0 -2.85714rem;
+    margin: 0 -2.55714rem;
 
     background-color: #394045;
 }
@@ -105,9 +105,10 @@ a:-webkit-any-link
 {
     font: 600 18.46px Raleway;
 
-    position: relative;
-    top: -600px;
+    position: absolute;
+
     right: 20px;
+    top:400px;
 
     float: right;
 
@@ -247,11 +248,51 @@ ul
     cursor: pointer;
 }
 
-#footer
+.footer
 {
     overflow: hidden;
 
     margin-top: 40px;
+    color: #a3a3a3;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: rgba(0, 0, 0, .5);
+
+    -khtml-border-radius: 10px;
+    width:95%;
+    display: inline-block;
+    padding:10px;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.footer-left
+{
+    width:400px;
+    float: left;
+    height:auto;
+}
+
+.footer-right
+{
+    width:400px;
+    float:right;
+    height:auto;
+    margin-top:-250px;
+}
+
+.footer-middle
+{
+    width:400px;
+    float:none;
+    height:auto;
+    margin: 0 auto;
+}
+
+.footer > .logo
+{
+    float:left;
 }
 
 .replycount
@@ -367,7 +408,7 @@ a[tooltip]::after
     height: 0;
     margin-bottom: 4px;
 
-    content: \'\';
+    content: '\';
 
     border: 6px solid transparent;
     border-top-color: #000;
@@ -378,36 +419,6 @@ a[tooltip]:hover::before,
 a[tooltip]:hover::after
 {
     display: block;
-}
-/* Mobile Devices */
-
-@media only screen and (min-device-width: 100px) and (max-device-width: 700px)
-{
-    .sidebar
-    {
-        position: absolute;
-        top: 350px;
-        bottom: 0;
-
-        width: 90%;
-        height: 300px;
-    }
-    .side-header
-    {
-        width: 200px;
-    }
-    .side-content > p
-    {
-        display: inline-block;
-    }
-    .news
-    {
-        position: absolute;
-        top: 1200px;
-
-        width: 100%;
-        height: auto;
-    }
 }
 
 .overlay
@@ -655,4 +666,91 @@ a[tooltip]:hover::after
     width: 120px;
     height: 20px;
     margin-bottom: 15px;
+}
+/* Mobile Devices */
+
+@media only screen and (min-device-width: 100px) and (max-device-width: 700px)
+{
+    .sidebar
+    {
+        position: absolute;
+        top: 350px;
+        bottom: 0;
+
+        width: 90%;
+        height: 450px;
+    }
+    .side-header
+    {
+        width: 200px;
+    }
+    .side-content > p
+    {
+        display: inline-block;
+    }
+    .news
+    {
+        position: absolute;
+        top: 900px;
+
+        width: 90%;
+        height: auto;
+        right:25px;
+    }
+    .right-side
+    {
+        float: right;
+        position: relative;
+        top:-400px;
+        right: -300px;
+    }
+    .left-side
+    {
+        float: left;
+        margin-top: 100px;
+        position: relative;
+    }
+    .middle-side 
+    {
+        margin-left: 300px;
+        margin-top:-350px;
+    }
+    .status
+    {
+        margin-left: 500px;
+    }
+    .user-info
+    {
+        float: left;
+        margin-top:-10px;
+        position: relative;
+        left:250px;
+    }
+    .userstats
+    {
+        margin-top: -100px;
+    }
+    .username
+    {
+        margin-top: -100px;
+    }
+    .avatar
+    {
+        position: relative;
+        left:-250px;
+        top:-100px;
+    }
+    .nav li.right
+    {
+        float: right;
+    }
+    .side-header
+    {
+        text-align: center;
+    }
+    .footer
+    {
+        margin-bottom:-100px;
+        position: relative;
+    }
 }

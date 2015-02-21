@@ -55,113 +55,145 @@ error_reporting(0);
             ?>
         </div>
         <div class='sidebar'>
-            <div class="user-info">
-                <?php
-                    if ($user_id != null) {
-                        
-                        $userModel = XenForo_Model::create('XenForo_Model_User');
+            <div class="left-side">
+                <div class="user-info">
+                    <?php
+                        if ($user_id != null) {
 
-                        $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
+                            $userModel = XenForo_Model::create('XenForo_Model_User');
 
-                        echo '<img class="avatar" src="/'.$avatarUrl.'">';
-                        echo '<a href="/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
-                        
-                        echo '<ul class="userstats">';
-                        echo '<li>Messages: '.$visitor['message_count'].'</li>'; 
-                        echo '<li>Likes: '.$visitor['like_count'].'</li>'; 
-                        echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
+                            $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
 
-                    } else {
-                        echo "<div class='button'>JOIN US</div>";
-                    }  
-                ?>
-                </ul>
-            </div>
-            <div class='side-header'>Servers</div>
-            <div class='side-content'>
-                <div class='server-status'>
-                    <div class='status-row'>
-                        <a tooltip="<?php echo $server1['address']; ?>"><p class='status-name'><?php echo $server1['name']; ?></p></a>
-                        <p class='<?php if($buildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
-                    </div>
-                    <div class='status-row'>
-                        <div class="list">
-                            <?php
-                                if ($buildStatus != 'offline') getPlayerList(1); else echo "<p>Couldn't fetch Playerlist..</p>";
-                            ?>
-                        </div>
-                    </div>
-                    <div class='status-row'>
-                        <a tooltip="<?php echo $server2['address']; ?>"><p class='status-name'><?php echo $server2['name']; ?></p></a>
-                        <p class='<?php if($freebuildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
-                    </div>
-                    <div class='status-row'>
-                        <div class="list" id="list">
-                            <?php
-                                if ($freebuildStatus != 'offline') getPlayerList(2); else echo "<p>Couldn't fetch Playerlist..</p>";
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class='side-header'>Staff Online Now</div>
-                <div class='staff-list'>
-                    <ul>
-                        <?php 
-                            $sessionModel = XenForo_Model::create('XenForo_Model_Session');
+                            echo '<img class="avatar" src="/'.$avatarUrl.'">';
+                            echo '<a href="/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
 
-                            $onlineUsers = $sessionModel->getSessionActivityQuickList(
-                                $visitor->toArray(),
-                                array('cutOff' => array('>', $sessionModel->getOnlineStatusTimeout())),
-                                ($visitor['user_id'] ? $visitor->toArray() : null)
-                            );
-                            foreach($onlineUsers['records'] as $user) 
-                            {
-                                $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($user, 'm', null, false));
-                                $url = "/index.php?members/".$user['user_id']."";
-                                
-                                if($user['is_staff'] == true) 
-                                {
-                                    echo "<li><img class='staff-pic' src='/$avatarUrl'><a href=".$url." class='link'>".$user['username']."</a><p class='staff'></p></li>";
-                                }
-                            }
-                        ?>
+                            echo '<ul class="userstats">';
+                            echo '<li>Messages: '.$visitor['message_count'].'</li>'; 
+                            echo '<li>Likes: '.$visitor['like_count'].'</li>'; 
+                            echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
+
+                        } else {
+                            echo "<div class='button'>JOIN US</div>";
+                        }  
+                    ?>
                     </ul>
                 </div>
-                <div class='side-header'>Jobs</div>
-                    <div class="jobs">
-                        <?php fetchJobs(); ?>
+                <div class='side-header'>Servers</div>
+                <div class='side-content'>
+                    <div class='server-status'>
+                        <div class='status-row'>
+                            <a tooltip="<?php echo $server1['address']; ?>"><p class='status-name'><?php echo $server1['name']; ?></p></a>
+                            <p class='<?php if($buildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
+                        </div>
+                        <div class='status-row'>
+                            <div class="list">
+                                <?php
+                                    if ($buildStatus != 'offline') getPlayerList(1); else echo "<p>Couldn't fetch Playerlist..</p>";
+                                ?>
+                            </div>
+                        </div>
+                        <div class='status-row'>
+                            <a tooltip="<?php echo $server2['address']; ?>"><p class='status-name'><?php echo $server2['name']; ?></p></a>
+                            <p class='<?php if($freebuildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
+                        </div>
+                        <div class='status-row'>
+                            <div class="list" id="list">
+                                <?php
+                                    if ($freebuildStatus != 'offline') getPlayerList(2); else echo "<p>Couldn't fetch Playerlist..</p>";
+                                ?>
+                            </div>
+                        </div>
                     </div>
-                <div class='side-header'>Mojang</div>
-                <div clas='services'>
-                    <div class='status-row'>
-                        <p class='status-name'>WebSite</p><p class='<?php if(checkMojangOnline('website') == 'red') {echo 'offline';}?> status'>Online</p>
+                </div>
+                <div class="middle-side">
+                    <div class='side-header'>Staff Online Now</div>
+                    <div class='staff-list'>
+                        <ul>
+                            <?php 
+                                $sessionModel = XenForo_Model::create('XenForo_Model_Session');
+
+                                $onlineUsers = $sessionModel->getSessionActivityQuickList(
+                                    $visitor->toArray(),
+                                    array('cutOff' => array('>', $sessionModel->getOnlineStatusTimeout())),
+                                    ($visitor['user_id'] ? $visitor->toArray() : null)
+                                );
+                                foreach($onlineUsers['records'] as $user) 
+                                {
+                                    $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($user, 'm', null, false));
+                                    $url = "/index.php?members/".$user['user_id']."";
+
+                                    if($user['is_staff'] == true) 
+                                    {
+                                        echo "<li><img class='staff-pic' src='/$avatarUrl'><a href=".$url." class='link'>".$user['username']."</a><p class='staff'></p></li>";
+                                    }
+                                }
+                            ?>
+                        </ul>
                     </div>
-                    <div class='status-row'>
-                        <p class='ip'>minecraft.net</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='status-name'>Login</p><p class='<?php if(checkMojangOnline('login') == 'red') {echo 'offline';}?> status'>Online</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='ip'>Login Server</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('session') == 'red') {echo 'offline';}?> status'>Online</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='ip'>Session Server</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='status-name'>Skin</p><p class='<?php if(checkMojangOnline('skin') == 'red') {echo 'offline';}?> status'>Online</p>
-                    </div>
-                    <div class='status-row'>
-                        <p class='ip'>Skin Server</p>
+                    <div class='side-header'>Jobs</div>
+                        <div class="jobs">
+                            <?php fetchJobs(); ?>
+                        </div>
+                </div>
+                <div class="right-side">
+                    <div clas='mojang'>
+                        <div class='side-header'>Mojang</div>
+                        <div class='status-row'>
+                            <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('website') == 'red') echo "offline status'>Online"; 
+                                                                                                                    else echo "online status'>online</p>";?>
+                                                                 
+                        </div>
+                        <div class='status-row'>
+                            <p class='ip'>minecraft.net</p>
+                        </div>
+                        <div class='status-row'>
+                        <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('login') == 'red') echo "offline status'>Online"; 
+                                                                                                                    else echo "online status'>online</p>";?>
+                                                             
+                        </div>
+                        <div class='status-row'>
+                            <p class='ip'>Login Server</p>
+                        </div>
+                        <div class='status-row'>
+                            <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('session') == 'red') echo "offline status'>Online"; 
+                                                                                                                    else echo "online status'>online</p>";?>
+                                                                 
+                        </div>
+                        <div class='status-row'>
+                            <p class='ip'>Session Server</p>
+                        </div>
+                        <div class='status-row'>
+                            <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('skin') == 'red') echo "offline status'>Online"; 
+                                                                                                                    else echo "online status'>online</p>";?>
+                                                                 
+                        </div>
+                        <div class='status-row'>
+                            <p class='ip'>Skin Server</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id='footer'>
+        <div class='footer'>
         <!-- (TODO) Footer here-->
+            <img class='logo' src='assets/images/Icons/logo.png'>
+            <div class="footer-left">
+                <h3>About Us</h3>
+                <p>Our community recreates the world of Middle Earth as described by J.R.R. Tolkien's books. Through online collaboration between people of different countries and of all ages, we build that world block by block within a Minecraft server.</p>
+            </div>
+            <div class="footer-middle">
+                <h3>Contact Us</h3>
+<p>The administrator of the project is q220. 
+For inquires or questions, please direct yourself to q220, or use the Contact Us page.
+    Contact administrator</p>
+
+
+<p>A list of the current Staff members can be found under the Staff Members</p>
+            </div>
+            <div class="footer-right">
+                <h3>Support Us</h3>
+                <p>This community has no income whatsoever through advertisements or selling products. While hosting a website and game server not only requires a massive time investment to maintain, it also costs a lot of money. You can help us by making a voluntary donation towards the Community Costs to help keep the community stay alive.</p>
+            </div>
         </div>
 <!--MODAL-->
           <div class="modal">

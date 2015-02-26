@@ -12,6 +12,8 @@ error_reporting(0);
      *
      * @param string Type of the error: notice, error, or info.
      * @param string Message for the log.
+     * @param string $type
+     * @param string $message
      */
     function Logger($type,$message) //currently no longer used (TODO)
     {
@@ -194,7 +196,7 @@ error_reporting(0);
      *
      * Get latest version from Github.
      *
-     * @return int Current (stable) version from Github.
+     * @return string Current (stable) version from Github.
      */
     function checkVersion()
     {

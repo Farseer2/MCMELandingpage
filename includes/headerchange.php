@@ -1,12 +1,13 @@
+<?php header('Conent-type: application/json'); ?>
 <?php    
     $filename = "../".$_GET['img'];
 
         $luminance = getLuminance($filename,10);
 
         if ($luminance > 100) {
-            echo "<style>.header,.screenshot-placename{color:#242424;}</style>";
+            echo json_encode("#242424");
         } else {
-            echo "<style>.header,.screenshot-placename{color:#e4e4e4;}</style>";
+            echo json_encode("#e4e4e4");
         }
 
     function getLuminance($filename, $num_samples=10) 

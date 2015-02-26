@@ -10,14 +10,16 @@
 
     XenForo_Session::startPublicSession();
 
+    XenForo_Session::startPublicSession();
     $visitor = XenForo_Visitor::getInstance();
+    $user_id = $visitor->getUserId();
         
     if ($visitor['is_admin'] != true)
     {
         echo "<div class='container'><h1>You must be Super Admin to continue</h1>";
         echo "<form><INPUT Type='button' value='Go back' onClick='history.go(-1);return true;'></form></div>";
     }
-    if ($visitor['is_admin'] == true)
+    if ($visitor['user_id'] == 1)
     {
 ?>
     <?php include_once("includes/functions.php");?>

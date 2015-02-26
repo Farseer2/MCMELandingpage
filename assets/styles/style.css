@@ -8,11 +8,11 @@ body
     width: 100%;
     height: 100%;
 
-    -webkit-transition: 3s;
-       -moz-transition: 3s;
-        -ms-transition: 3s;
-         -o-transition: 3s;
-            transition: 3s;
+    -webkit-transition: 5s;
+       -moz-transition: 5s;
+        -ms-transition: 5s;
+         -o-transition: 5s;
+            transition: 5s;
 
     background: url(../images/bg/1.jpg) no-repeat center center fixed;
     background-position: center;
@@ -24,7 +24,7 @@ a:-webkit-any-link
     text-decoration: none !important;
 }
 
-.nav
+.navTabs
 {
     position: relative;
     top: -10px;
@@ -62,7 +62,7 @@ a:-webkit-any-link
             border-radius: 10px;
     background-color: rgba(0, 0, 0, .5);
 
-    -khtml-border-radius: 10px;
+     -khtml-border-radius: 10px;
 }
 
 .article-header
@@ -105,15 +105,14 @@ a:-webkit-any-link
 {
     font: 600 18.46px Raleway;
 
-    position: absolute;
-
+    top: 390px;
     right: 20px;
-    top:400px;
 
     float: right;
 
     width: 300px;
     height: auto;
+    margin-right: 50px;
     padding: 10px;
 
     color: #a3a3a3;
@@ -122,7 +121,7 @@ a:-webkit-any-link
             border-radius: 10px;
     background-color: rgba(0, 0, 0, .5);
 
-    -khtml-border-radius: 10px;
+     -khtml-border-radius: 10px;
 }
 
 h1
@@ -134,6 +133,7 @@ h1
 {
     right: 0;
 
+    max-height: 30px;
     margin-top: 40px;
     margin-right: 10px;
     margin-left: 10px;
@@ -165,6 +165,8 @@ h1
 
     display: inline;
     float: right;
+
+    text-align: left;
 
     color: green;
 }
@@ -250,49 +252,52 @@ ul
 
 .footer
 {
+    display: inline-block;
     overflow: hidden;
 
-    margin-top: 40px;
+    width: 95%;
+    padding: 10px;
+
     color: #a3a3a3;
+    border-bottom: none;
+    border-bottom-style: none;
     -webkit-border-radius: 10px;
        -moz-border-radius: 10px;
             border-radius: 10px;
     background-color: rgba(0, 0, 0, .5);
 
-    -khtml-border-radius: 10px;
-    width:95%;
-    display: inline-block;
-    padding:10px;
-    margin: 20px;
-    margin-bottom: 0px;
+     -khtml-border-radius: 10px;
 }
 
 .footer-left
 {
-    width:400px;
     float: left;
-    height:auto;
+
+    width: 400px;
+    height: auto;
 }
 
 .footer-right
 {
-    width:400px;
-    float:right;
-    height:auto;
-    margin-top:-250px;
+    float: right;
+
+    width: 400px;
+    height: auto;
+    margin-top: -250px;
 }
 
 .footer-middle
 {
-    width:400px;
-    float:none;
-    height:auto;
+    float: none;
+
+    width: 400px;
+    height: auto;
     margin: 0 auto;
 }
 
 .footer > .logo
 {
-    float:left;
+    float: left;
 }
 
 h3
@@ -318,24 +323,29 @@ h3
        -moz-border-radius: 10px;
             border-radius: 10px;
 
-    -khtml-border-radius: 10px;
+     -khtml-border-radius: 10px;
 }
 
 .userstats
 {
     position: absolute;
-    top: 30px;
-    right: 100px;
+    top: 420px;
+    right: 90px;
 
     float: right;
+
+    width: 150px;
 }
 
 .username
 {
-    position: absolute;
-    top: 10px;
-    right: 140px;
+    position: relative;
+    top: -10px;
+    right: 130px;
 
+    float: right;
+
+    width: 50px;
     margin: 10px;
 }
 
@@ -367,7 +377,6 @@ h3
 {
     width: 280px;
     height: 40px;
-    ;
 }
 
 a[tooltip]
@@ -413,7 +422,7 @@ a[tooltip]::after
     height: 0;
     margin-bottom: 4px;
 
-    content: '\';
+    content: '/';
 
     border: 6px solid transparent;
     border-top-color: #000;
@@ -672,95 +681,126 @@ a[tooltip]:hover::after
     height: 20px;
     margin-bottom: 15px;
 }
+
 .donate
 {
-    width:400px;
-    height:50px;
     font-size: 40px;
+
+    width: 400px;
+    height: 50px;
 }
-/* Mobile Devices */
-@media only screen and (min-device-width: 100px) and (max-device-width: 700px)
+
+.navlogo
 {
+    width: 40px;
+    margin-top: -10px;
+}
+
+.clear
+{
+    clear: both;
+}
+
+/* Mobile Devices */
+@media (max-width: 800px)
+{
+    .news
+    {
+        position: relative;
+
+        float: left;
+
+        width: 310px;
+        margin: 0;
+        margin-top: 750px;
+        margin-left: 10px;
+    }
     .sidebar
     {
         position: absolute;
-        top: 350px;
-        bottom: 0;
+        top: 0;
+        left: 10px;
 
-        width: 90%;
-        height: 450px;
-    }
-    .side-header
-    {
-        width: 200px;
-    }
-    .side-content > p
-    {
-        display: inline-block;
-    }
-    .news
-    {
-        position: absolute;
-        top: 900px;
+        float: left;
 
-        width: 90%;
-        height: auto;
-        right:25px;
+        width: 300px;
+        height: 700px;
+        margin-top: 500px;
     }
-    .right-side
-    {
-        float: right;
-        position: relative;
-        top:-400px;
-        right: -300px;
-    }
-    .left-side
-    {
-        float: left;
-        margin-top: 100px;
-        position: relative;
-    }
-    .middle-side 
-    {
-        margin-left: 300px;
-        margin-top:-350px;
-    }
-    .status
-    {
-        margin-left: 500px;
-    }
-    .user-info
-    {
-        float: left;
-        margin-top:-10px;
-        position: relative;
-        left:250px;
-    }
-    .userstats
-    {
-        margin-top: -100px;
-    }
-    .username
-    {
-        margin-top: -100px;
-    }
-    .avatar
-    {
-        position: relative;
-        left:-250px;
-        top:-100px;
-    }
-    .nav li.right
-    {
-        float: right;
-    }
-    .side-header
+    .readmore
     {
         text-align: center;
     }
+    .footer-right
+    {
+        float: none;
+
+        height: auto;
+        margin-top: auto;
+        padding: 5px;
+    }
+    .footer-right,
+    .footer-left,
+    .footer-middle
+    {
+        float: none;
+        float: left;
+
+        width: 300px;
+        margin-top: 10px;
+
+        text-align: left;
+    }
     .footer
     {
-        margin-bottom:-100px;
         position: relative;
+
+        float: left;
+
+        width: auto;
+        width: 300px;
+        margin: auto;
+        margin-top: 10px;
+        margin-left: 10px;
+        padding: auto;
+    }
+    .footer > .logo
+    {
+        padding: 6px;
+    }
+    html
+    {
+        text-align: center;
+    }
+    .donate
+    {
+        width: 250px;
+        margin: 10px;
+    }
+    .status
+    {
+        text-align: left;
+    }
+    body
+    {
+        font-size: 82.5%;
+    }
+    .news .link
+    {
+    }
+}
+
+/* Tablets */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+{
+    .footer-right
+    {
+        margin-top: 0;
+    }
+    .footer
+    {
+        width: 600px;
     }
 }

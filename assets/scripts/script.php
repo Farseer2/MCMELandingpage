@@ -1,15 +1,30 @@
-<script>
-if(navigator.userAgent.match(/Android/i) &&
-   navigator.userAgent.match(/webOS/i) &&
-   navigator.userAgent.match(/iPhone/i) &&
-   navigator.userAgent.match(/iPod/i) &&
-   navigator.userAgent.match(/iPad/i) &&
-   navigator.userAgent.match(/Blackberry/i) )
-    {
-        //user uses a smartphone and we thus don't do the background changer.
+<?php
+    function isMobileDevice(){
+        $aMobileUA = array(
+            '/iphone/i' => 'iPhone', 
+            '/ipod/i' => 'iPod', 
+            '/ipad/i' => 'iPad', 
+            '/android/i' => 'Android', 
+            '/blackberry/i' => 'BlackBerry', 
+            '/webos/i' => 'Mobile'
+        );
+
+        foreach($aMobileUA as $sMobileKey => $sMobileOS){
+            if(preg_match($sMobileKey, $_SERVER['HTTP_USER_AGENT'])){
+                return true;
+            }
+        }
+        return false;
     }
-else
-{
+
+    if (isMobileDevice() == true)
+    {
+
+    }
+    if (isMobileDevice() == false)
+    {
+?>
+<script>
     (function () {
         var bgCounter = 0,
             backgrounds = ["assets/images/bg/1.jpg",
@@ -18,38 +33,35 @@ else
                            "assets/images/bg/4.jpg",
                            "assets/images/bg/5.jpg",
                            "assets/images/bg/6.jpg"], //configurable (TODO)
-            descriptions = ["Misty Mountains",
-                            "Misty Mountains",
-                            "Rivendell",
-                            "Harlond",
-                            "Paths of the Dead",
-                            "Pelennor Fields"];
+            descriptions = ["Glittering Caves",  //2
+                            "Misty Mountains",  //3
+                            "Rivendell",        //4
+                            "Harlond",          //5
+                            "Paths of the Dead",//6
+                            "Misty Mountains"];//1
             //this should be together with the images, 2d array? (TODO)
 
         function changeBackground() 
         {
             $('#desc').text(descriptions[bgCounter]);
             bgCounter = (bgCounter+1) % backgrounds.length;
+            
+            $.getJSON('/bracketshome/includes/headerchange.php?img='+backgrounds[bgCounter]+'', function(data) {
+                 //alert(data);
+                 $(".header,.screenshot-placename").css("color", ""+data+"");
+            });
+            
             $('body').css('background', 'url('+backgrounds[bgCounter]+') no-repeat center center fixed');
             $("body").css("background-size", "cover");
 
             setTimeout(changeBackground,10000);
-            
-            $('style').load('includes/headerchange.php?img='+backgrounds[bgCounter]);
 
-            $.ajax({
-                url: 'includes/headerchange.php?img='+backgrounds[bgCounter],
-                type: 'GET',
-                success: function(res) {
-                    var data = $(res.responseText).find('style').text();
-                    $(".header").animate({color : ''+data+'' }, 'fast');
-                }
-            });
         }
         changeBackground();
     })();
-}
-</script>
+    </script>
+<?php } ?>
+
 <!--MODAL-->
 <script>
 /*var modal = $('.modal');
@@ -66,14 +78,12 @@ else
     $( "#1.showplist" ).on( "click", function(e) {
         $( ".plist#1" ).fadeOut( "slow", function() {
             $( "#1.fullplist" ).fadeIn( "slow", function() {
-
           });
         });
     }); 
     $( "#2.showplist" ).on( "click", function(e) {
         $( ".plist#2" ).fadeOut( "slow", function() {
             $( "#2.fullplist" ).fadeIn( "slow", function() {
-
           });
         });
     }); 

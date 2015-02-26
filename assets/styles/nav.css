@@ -1,68 +1,124 @@
-.nav li
+.navTabs
 {
-    float: left;
+        float: left;
 
-    height: 50px;
+    padding: 0 25px;
     padding-top: 17.5px !important;
     padding-right: 20px;
     padding-left: 20px;
-
+    height: 40px;
+    border-left: 1px solid rgba(0,0,0,.1);
+    background-color: none;
+    color: #fff;
     list-style: none;
-
+    text-align: center;
+     text-decoration: none !important;
+    text-shadow: 0 -3px 3px rgba(255, 255, 255, .2);
     cursor: pointer;
     -webkit-transition: background-color ease-in-out .5s;
        -moz-transition: background-color ease-in-out .5s;
          -o-transition: background-color ease-in-out .5s;
             transition: background-color ease-in-out .5s;
-    text-align: center;
+}
 
+.navTabs .publicTabs
+{
+    float: left;
+    height:40px;
     color: #fff;
+     text-decoration: none !important;
+}
+
+.navTabs .visitorTabs
+{
+    float: right;
+    height:40px;
+    color: #fff;
+     text-decoration: none !important;
+}
+
+.navTabs .navTab
+{
+    float: left;
+    margin-top: -34px;
+    
+    min-width: 80px;
+    height:50px;
+    color: #fff;
+     text-decoration: none !important;
+        -webkit-transition: background-color ease-in-out .5s;
+       -moz-transition: background-color ease-in-out .5s;
+         -o-transition: background-color ease-in-out .5s;
+            transition: background-color ease-in-out .5s;
+    padding: 10px;
     border-left: 1px solid rgba(0,0,0,.1);
-    background-color: none;
-    text-shadow: 0 -3px 3px rgba(255, 255, 255, .2);
 }
-.nav li a,a:visited,a:hover
-{
-    text-decoration: none;
 
-    color: white;
-}
-.nav li:first-child
-{
-    font-weight: bold;
-
-    border-left: none;
-}
-.nav li:hover
-{
-    background-color: #454e55;
-}
-.nav li.active
+.navTab:active
 {
     background-color: rgba(255,255,255,.2);
 }
-.nav li.right
+
+.navTab:visited
 {
-    float: right;
+    color: white;
+
+     text-decoration: none !important;
 }
+.navTab:hover
+{
+    background-color: #454e55;
+}
+.navLink
+{
+    height:50px;
+
+    color: #fff;
+    text-transform: uppercase;
+    font: 500 20px Raleway;
+    text-align: center;
+}
+
+.account,.inbox,.alerts
+{
+    width:50px;
+}
+
+.secondaryContent,
+.sectionfooter,
+.tabMenu,
+.Zero,
+.blockLinksList,
+#VisitorExtraMenu_Counter
+{
+    display: none;
+}
+
+.home > a
+{
+    font-weight: bolder;
+}
+
 /* NO NAVBAR STYLES */
+
 .button
 {
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #803b3b;
+    color: #a3a3a3;
+    text-align: center;
+
     cursor: pointer;
     -webkit-transition: background-color ease-in-out .3s;
        -moz-transition: background-color ease-in-out .3s;
          -o-transition: background-color ease-in-out .3s;
             transition: background-color ease-in-out .3s;
-    text-align: center;
 
-    color: #a3a3a3;
-    -webkit-border-radius: 10px;
-       -moz-border-radius: 10px;
-            border-radius: 10px;
-    background-color: #803b3b;
-
-    -khtml-border-radius: 10px;
+     -khtml-border-radius: 10px;
 }
+
 .button:hover
 {
     background-color: #a73434;

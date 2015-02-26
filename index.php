@@ -1,178 +1,184 @@
+<?php include_once("analyticstracking.php") ?>
 <?php require_once('includes/functions.php'); ?>
 <?php require_once('includes/config.php'); ?>
+<?php require_once('includes/header.php'); ?>
 <?php
-error_reporting(0);
-    $startTime = microtime(true);
-    $fileDir = '../';
-
-    require($fileDir . '/library/XenForo/Autoloader.php');
-    XenForo_Autoloader::getInstance()->setupAutoloader($fileDir . '/library');
-
-    XenForo_Application::initialize($fileDir . '/library', $fileDir);
-    XenForo_Application::set('page_start_time', $startTime);
-
-    XenForo_Session::startPublicSession();
-
+//error_reporting(0);
+//set_time_limit(5);
     $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
     $server1 = $herodevModel->getMinecraftServerById(1);
     $server2 = $herodevModel->getMinecraftServerById(2);
 
     $freebuildStatus = checkMCServerOnline($server1['address']);
     $buildStatus = checkMCServerOnline($server2['address']);
+
 ?>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel='stylesheet' href='assets/styles/style.css'>
         <link rel='stylesheet' href='assets/styles/nav.css'>
         <title><?php echo getSetting("info","subHeader");?> | Home</title>
     </head>
     <body>
         <?php include_once("includes/nav.php"); ?>
-    <h3 id='desc' class='screenshot-placename'>Glittering Caves</h3>
+    <h3 id='desc' class='screenshot-placename'>Misty Mountains</h3>
         <div class='header'>
             <img class='logo' src='assets/images/Icons/logo.png'>
             <h1 class='header1'><?php echo getSetting("info","Header");?></h1>
             <h2 class='header2'><?php echo getSetting("info","subHeader");?></h2>
+            <div class="clear"></div>
         </div>
-        <div class='news'>
-            <?php
-                /* (TODO) Configurable */
-                $threadModel = XenForo_Model::create('XenForo_Model_Thread');
-                $conditions = array();
-                $options = array('join' => XenForo_Model_Thread::FETCH_FIRSTPOST,
-                                'limit' => getSetting("info","threadLimit"));
-                $threads = $threadModel->getThreadsInForum(2, $conditions, $options);
-                foreach ($threads AS $threadId => $thread) {
-                    if ($threadModel->canViewThread($thread,$thread) && $thread['cta_ft_featured'] == 1) {
-                      echo '<div class="article">
-                                    <h3 class="article-header">' . XenForo_Helper_String::wholeWordTrim($thread['title'], 48) . '</h3>  
-                                    <p>' . XenForo_Helper_String::wholeWordTrim($thread['message'], 440) . '</p> 
-                                    <span class="replycount">Replies: ' . $thread['reply_count'] . '</span><br />
-                                    <a class="link" href="' . XenForo_Link::buildPublicLink('canonical:threads', $thread) . '">Read More</a>
-                                </div>';
-                    }
-                }
-            ?>
-        </div>
-        <div class='sidebar'>
-            <div class="left-side">
-                <div class="user-info">
-                    <?php
-                        if ($user_id != null) {
+        <div class="container">
+            <div class='sidebar'>
+                <div class="left-side">
+                    <div class="user-info">
+                        <?php
+                            if ($user_id != null) {
 
-                            $userModel = XenForo_Model::create('XenForo_Model_User');
+                                $userModel = XenForo_Model::create('XenForo_Model_User');
+                                $alertModel = Xenforo_Model::create('Xenforo_Model_User');
+                                
+                                //XenForo_Model_Alert::alert($visitor['user_id'], 2, "Aaldim", "post", 2, "insert");
+                                //XenForo_Model_Alert::getAlertsForUser(1,"get");
 
-                            $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
+                                $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($visitor->toArray(), 'm', null, false));
 
-                            echo '<img class="avatar" src="/'.$avatarUrl.'">';
-                            echo '<a href="/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
+                                echo '<img class="avatar" src="/'.$avatarUrl.'">';
+                                echo '<a href="/index.php?members/'.$user_id.'"><p class="username link">'.$visitor["username"].'</p></a>';
 
-                            echo '<ul class="userstats">';
-                            echo '<li>Messages: '.$visitor['message_count'].'</li>'; 
-                            echo '<li>Likes: '.$visitor['like_count'].'</li>'; 
-                            echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
+                                echo '<ul class="userstats">';
+                                echo '<li>Messages: '.$visitor['message_count'].'</li>'; 
+                                echo '<li>Likes: '.$visitor['like_count'].'</li>'; 
+                                echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
 
-                        } else {
-                            echo "<a href='http://www.mcmiddleearth.com/faq/'><div class='button modal-button'>JOIN US</div></a>";
-                        }  
-                    ?>
-                    </ul>
-                </div>
-                <div class='side-header'>Servers</div>
-                <div class='side-content'>
-                    <div class='server-status'>
-                        <div class='status-row'>
-                            <a tooltip="<?php echo $server1['address']; ?>"><p class='status-name'><?php echo $server1['name']; ?></p></a>
-                            <p class='<?php if($buildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
-                        </div>
-                        <div class='status-row'>
-                            <div class="list">
-                                <?php
-                                    if ($buildStatus != 'offline') getPlayerList(1); else echo "<p>Couldn't fetch Playerlist..</p>";
-                                ?>
-                            </div>
-                        </div>
-                        <div class='status-row'>
-                            <a tooltip="<?php echo $server2['address']; ?>"><p class='status-name'><?php echo $server2['name']; ?></p></a>
-                            <p class='<?php if($freebuildStatus == 'offline') {echo 'offline';}?> status'>Online</p>
-                        </div>
-                        <div class='status-row'>
-                            <div class="list" id="list">
-                                <?php
-                                    if ($freebuildStatus != 'offline') getPlayerList(2); else echo "<p>Couldn't fetch Playerlist..</p>";
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="middle-side">
-                    <div class='side-header'>Staff Online Now</div>
-                    <div class='staff-list'>
-                        <ul>
-                            <?php 
-                                $sessionModel = XenForo_Model::create('XenForo_Model_Session');
-
-                                $onlineUsers = $sessionModel->getSessionActivityQuickList(
-                                    $visitor->toArray(),
-                                    array('cutOff' => array('>', $sessionModel->getOnlineStatusTimeout())),
-                                    ($visitor['user_id'] ? $visitor->toArray() : null)
-                                );
-                                foreach($onlineUsers['records'] as $user) 
-                                {
-                                    $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($user, 'm', null, false));
-                                    $url = "/index.php?members/".$user['user_id']."";
-
-                                    if($user['is_staff'] == true) 
-                                    {
-                                        echo "<li><img class='staff-pic' src='/$avatarUrl'><a href=".$url." class='link'>".$user['username']."</a><p class='staff'></p></li>";
-                                    }
-                                }
-                            ?>
+                            } else {
+                                echo "<a href='http://www.mcmiddleearth.com/faq/'><div class='button modal-button'>JOIN US</div></a>";
+                            }  
+                        ?>
                         </ul>
                     </div>
-                    <div class='side-header'>Jobs</div>
-                        <div class="jobs">
-                            <?php fetchJobs(); ?>
-                        </div>
-                </div>
-                <div class="right-side">
-                    <div clas='mojang'>
-                        <div class='side-header'>Mojang</div>
-                        <div class='status-row'>
-                            <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('website') == 'red') echo "offline status'>Online"; 
-                                                                                                                    else echo "online status'>online</p>";?>
-                                                                 
-                        </div>
-                        <div class='status-row'>
-                            <p class='ip'>minecraft.net</p>
-                        </div>
-                        <div class='status-row'>
-                        <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('login') == 'red') echo "offline status'>Online"; 
-                                                                                                                    else echo "online status'>online</p>";?>
-                                                             
-                        </div>
-                        <div class='status-row'>
-                            <p class='ip'>Login Server</p>
-                        </div>
-                        <div class='status-row'>
-                            <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('session') == 'red') echo "offline status'>Online"; 
-                                                                                                                    else echo "online status'>online</p>";?>
-                                                                 
-                        </div>
-                        <div class='status-row'>
-                            <p class='ip'>Session Server</p>
-                        </div>
-                        <div class='status-row'>
-                            <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('skin') == 'red') echo "offline status'>Online"; 
-                                                                                                                    else echo "online status'>online</p>";?>
-                                                                 
-                        </div>
-                        <div class='status-row'>
-                            <p class='ip'>Skin Server</p>
+                    <div class='side-header'>Servers</div>
+                    <div class='side-content'>
+                        <div class='server-status'>
+                            <div class='status-row'>
+                                <a tooltip="<?php echo $server1['address']; ?>"><p class='status-name'><?php echo $server1['name']; ?></p></a>
+                                <p class='<?php if($buildStatus == 'offline') echo "offline status'>Offline"; else echo "online status'>Online"?></p>
+                            </div>
+                            <div class='status-row'>
+                                <div class="list">
+                                    <?php
+                                        if ($buildStatus != 'offline') getPlayerList(1); else echo "<p>Couldn't fetch Playerlist..</p>";
+                                    ?>
+                                </div>
+                            </div>
+                            <div class='status-row'>
+                                <a tooltip="<?php echo $server2['address']; ?>"><p class='status-name'><?php echo $server2['name']; ?></p></a>
+                                <p class='<?php if($freebuildStatus == 'offline') echo "offline status'>Offline"; else echo "online status'>Online"?></p>
+                            </div>
+                            <div class='status-row'>
+                                <div class="list" id="list">
+                                    <?php
+                                        try {if ($freebuildStatus != 'offline') getPlayerList(2); else echo "<p>Couldn't fetch Playerlist..</p>";} catch(Exception $e) {echo "sup";}
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="middle-side">
+                        <div class='side-header'>Staff Online Now</div>
+                        <div class='staff-list'>
+                            <ul>
+                                <?php 
+                                    $sessionModel = XenForo_Model::create('XenForo_Model_Session');
+
+                                    $onlineUsers = $sessionModel->getSessionActivityQuickList(
+                                        $visitor->toArray(),
+                                        array('cutOff' => array('>', $sessionModel->getOnlineStatusTimeout())),
+                                        ($visitor['user_id'] ? $visitor->toArray() : null)
+                                    );
+                                    foreach($onlineUsers['records'] as $user) 
+                                    {
+                                        $avatarUrl = XenForo_Template_Helper_Core::callHelper('avatar', array($user, 'm', null, false));
+                                        $url = "/index.php?members/".$user['user_id']."";
+
+                                        if($user['is_staff'] == true) 
+                                        {
+                                            echo "<li><img class='staff-pic' src='/$avatarUrl'><a href=".$url." class='link'>".$user['username']."</a><p class='staff'></p></li>";
+                                        }
+                                    }
+                                ?>
+                            </ul>
+                        </div>
+                        <div class='side-header'>Jobs</div>
+                            <div class="jobs">
+                                <?php fetchJobs(); ?>
+                            </div>
+                    </div>
+                    <div class="right-side">
+                        <!--<div clas='mojang'>
+                            <div class='side-header'>Mojang</div>
+                            <div class='status-row'>
+                                <p class='status-name'>Website</p><p class='<?php if(checkMojangOnline('website') == 'red') echo "offline status'>Online"; 
+                                                                                                                        else echo "online status'>online</p>";?>
+
+                            </div>
+                            <div class='status-row'>
+                                <p class='ip'>minecraft.net</p>
+                            </div>
+                            <div class='status-row'>
+                            <p class='status-name'>login</p><p class='<?php if(checkMojangOnline('login') == 'red') echo "offline status'>Online"; 
+                                                                                                                        else echo "online status'>online</p>";?>
+
+                            </div>
+                            <div class='status-row'>
+                                <p class='ip'>Login Server</p>
+                            </div>
+                            <div class='status-row'>
+                                <p class='status-name'>Session</p><p class='<?php if(checkMojangOnline('session') == 'red') echo "offline status'>Online"; 
+                                                                                                                        else echo "online status'>online</p>";?>
+
+                            </div>
+                            <div class='status-row'>
+                                <p class='ip'>Session Server</p>
+                            </div>
+                            <div class='status-row'>
+                                <p class='status-name'>Skin</p><p class='<?php if(checkMojangOnline('session') == 'red') echo "offline status'>Online"; 
+                                                                                                                        else echo "online status'>online</p>";?>
+
+                            </div>
+                            <div class='status-row'>
+                                <p class='ip'>Skin Server</p>
+                            </div>
+                        </div>-->
+                    </div>
                 </div>
+            <div class="clear"></div>
             </div>
+            <div class='news'>
+                <div class="articles">
+                    <?php
+                        /* (TODO) Configurable */
+                        $threadModel = XenForo_Model::create('XenForo_Model_Thread');
+                        $conditions = array();
+                        $options = array('join' => XenForo_Model_Thread::FETCH_FIRSTPOST,
+                                        'limit' => getSetting("info","threadLimit"));
+                        $threads = $threadModel->getThreadsInForum(2, $conditions, $options);
+                        foreach ($threads AS $threadId => $thread) {
+                            if ($threadModel->canViewThread($thread,$thread) && $thread['cta_ft_featured'] == 1) {
+                              echo '<div class="article">
+                                            <h3 class="article-header">' . XenForo_Helper_String::wholeWordTrim($thread['title'], 48) . '</h3>  
+                                            <p>' . XenForo_Helper_String::wholeWordTrim($thread['message'], 440) . '</p> 
+                                            <span class="replycount">Replies: ' . $thread['reply_count'] . '</span><br />
+                                            <a class="link readmore" href="' . XenForo_Link::buildPublicLink('canonical:threads', $thread) . '">Read More</a>
+                                        </div>';
+                            }
+                        }
+                    ?>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
         </div>
         <div class='footer'>
         <!-- (TODO) Footer here-->
@@ -199,6 +205,7 @@ For inquires or questions, please direct yourself to    <a href="http://www.mcmi
                 <h3>Support Us</h3>
                 <p>This community has no income whatsoever through advertisements or selling products. While hosting a website and game server not only requires a massive time investment to maintain, it also costs a lot of money. You can help us by making a voluntary donation towards the Community Costs to help keep the community stay alive.</p><a href="http://www.mcmiddleearth.com/donate/"><div class='button donate'>Donate to us!</div></a>
             </div>
+            <div class="clear"></div>
         </div>
 <!--MODAL-->
           <div class="modal">

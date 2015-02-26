@@ -1,5 +1,7 @@
 <?php include_once('config.php'); ?>
 <?php
+error_reporting(0);
+@ini_set('display_errors', 0);
 /*
     Functions
 */
@@ -159,7 +161,7 @@
         if (count($players) != 0) 
         {
             echo "<div id='$server' class='plist'>";
-                
+
             foreach(array_slice($players,0,5) as $player) 
             {
 
@@ -167,14 +169,15 @@
             }
             echo "</div>";
             echo "<div id='$server' class='fullplist'>";
-            
+
+
             foreach($players as $player) 
             {
 
                 echo '<a tooltip="'.$player.'"><img class="player-pic" src="https://minotar.net/cube/'.$player.'/100.png"></a>';
             }
             echo "</div>";
-            
+
             $playerNum = count($players);
             $imgDisplay = 5;
             $moreInList = $playerNum - $imgDisplay;

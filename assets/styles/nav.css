@@ -89,7 +89,10 @@
 .tabMenu,
 .Zero,
 .blockLinksList,
-#VisitorExtraMenu_Counter
+.navTab .selected,
+.navTabs img,
+#VisitorExtraMenu_Counter,
+#uix_paneTrigger
 {
     display: none;
 }

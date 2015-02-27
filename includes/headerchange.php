@@ -1,6 +1,6 @@
-<?php header('Conent-type: application/json'); ?>
+<?php header("Access-Control-Allow-Origin: *"); ?>
 <?php    
-    $filename = "../".$_GET['img'];
+    $filename = $_GET['img'];
 
         $luminance = getLuminance($filename,10);
 

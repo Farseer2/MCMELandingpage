@@ -109,39 +109,46 @@ error_reporting(0);
      */
     function getOnlinePlayers($query_data) 
     {
-        $data = explode(':',$query_data,3);
-        $resplayers = Array();
-        if($data[0] == 'a') {
-            $data[1] = $data[2];
-            $data = explode(';',substr($data[1],1,-1),2);
-            $field = explode(':',$data[0]);
-            while(count($field) < 3 || $field[2] != '"playerList"') {
-                $data = explode(';',$data[1],2);
+        if (strpos($query_data, "Received empty challenge response from server") == false)
+        {
+            $data = explode(':',$query_data,3);
+            $resplayers = Array();
+            if($data[0] == 'a') {
+                $data[1] = $data[2];
+                $data = explode(';',substr($data[1],1,-1),2);
                 $field = explode(':',$data[0]);
-            }
-            $data = explode(':',$data[1],3);
-            if($data[0] == 'a' && $data[1] != '0') {
-                $regex = '#\{((?>[^\{\}]+)|(?R))*\}#x';
-                preg_match($regex,$data[2],$data);
-                $data = substr($data[0],1,-1);
-                $data = explode(';',$data,2);
-                preg_match_all($regex,$data[1],$data);
-                $data = $data[1];
-                for($i = 0; $i < count($data); ++$i) {
-                    $data[$i] = explode(';',$data[$i]);
-                    for($j = 0; $j < count($data[$i])-1; ++$j) {
-                        $data[$i][$j] = substr(explode(':',$data[$i][$j])[2],1,-1);
-                    }
-                    for($j = 0; $j < count($data[$i])-1; ++$j) {
-                        if($data[$i][$j] == 'username') {
-                            array_push($resplayers,$data[$i][$j+1]);
-                            break;
+                while(count($field) < 3 || $field[2] != '"playerList"') {
+                    $data = explode(';',$data[1],2);
+                    $field = explode(':',$data[0]);
+                }
+                $data = explode(':',$data[1],3);
+                if($data[0] == 'a' && $data[1] != '0') {
+                    $regex = '#\{((?>[^\{\}]+)|(?R))*\}#x';
+                    preg_match($regex,$data[2],$data);
+                    $data = substr($data[0],1,-1);
+                    $data = explode(';',$data,2);
+                    preg_match_all($regex,$data[1],$data);
+                    $data = $data[1];
+                    for($i = 0; $i < count($data); ++$i) {
+                        $data[$i] = explode(';',$data[$i]);
+                        for($j = 0; $j < count($data[$i])-1; ++$j) {
+                            $data[$i][$j] = substr(explode(':',$data[$i][$j])[2],1,-1);
+                        }
+                        for($j = 0; $j < count($data[$i])-1; ++$j) {
+                            if($data[$i][$j] == 'username') {
+                                array_push($resplayers,$data[$i][$j+1]);
+                                break;
+                            }
                         }
                     }
                 }
             }
+            return $resplayers;
         }
-        return $resplayers;
+        else
+        {
+            return null;
+        }
     }
     /**
      * getPlayerList
@@ -154,14 +161,15 @@ error_reporting(0);
     function getPlayerList($server)
     {
         $herodevModel = XenForo_Model::create('HeroDev_MinecraftStatus_Model_MinecraftServer');
-        $servers = $herodevModel->getAllMinecraftServers();
+        $servers = $herodevModel->getAllActiveMinecraftServers();
 
         $herodevModel->queryMinecraftServer($server);
         
-        $players = getOnlinePlayers($servers[$server]['query_data']); 
-        
-        if (count($players) != 0) 
+        if (strpos($servers[$server]['query_data'], "playerList") == true) 
         {
+                    
+        $players = getOnlinePlayers($servers[$server]['query_data']); 
+            
             echo "<div id='$server' class='plist'>";
 
             foreach(array_slice($players,0,5) as $player) 

@@ -19,7 +19,7 @@
 
     if (isMobileDevice() == true)
     {
-
+        //user is using mobile device, don't load the image switcher code
     }
     if (isMobileDevice() == false)
     {
@@ -27,36 +27,62 @@
 <script>
     (function () {
         var bgCounter = 0,
-            backgrounds = ["assets/images/bg/1.jpg",
-                           "assets/images/bg/2.jpg",
-                           "assets/images/bg/3.jpg",
-                           "assets/images/bg/4.jpg",
-                           "assets/images/bg/5.jpg",
-                           "assets/images/bg/6.jpg"], //configurable (TODO)
-            descriptions = ["Glittering Caves",  //2
-                            "Misty Mountains",  //3
-                            "Rivendell",        //4
-                            "Harlond",          //5
-                            "Paths of the Dead",//6
-                            "Misty Mountains"];//1
-            //this should be together with the images, 2d array? (TODO)
+            backgrounds = [],
+            descriptions = [],
+            bgNames = ["bg1","bg2","bg3","bg4","bg5","bg6"];
+        
+
+        var i;
+        function getBackgrounds()
+        {
+            for(i = 0; i < bgNames.length; i++) 
+            {
+                $.getJSON('/home/includes/backgrounds.php?bg='+bgNames[i]+'', function(data) {
+
+                    backgrounds.push(data['url']);
+                    descriptions.push(data['desc']);
+
+                    console.log(data['desc']);
+                    console.log(data['url']);
+                });
+                console.log('/home/includes/backgrounds.php?bg='+bgNames[i]+'');
+            }         
+            console.log("BG COUNTER: ",bgCounter);
+            console.log("backgrounds BGCOUNTER",backgrounds[bgCounter]);
+            console.log("-----END OF getBackgrounds() function-----\n")
+        }
 
         function changeBackground() 
-        {
+        {   
+            bgCounter = (bgCounter+1) % 6;
             $('#desc').text(descriptions[bgCounter]);
-            bgCounter = (bgCounter+1) % backgrounds.length;
+            console.log(backgrounds);
+            console.log(descriptions);
+            console.log("back ",backgrounds[bgCounter]);
+            console.log("desc ",descriptions[bgCounter]);
             
-            $.getJSON('/bracketshome/includes/headerchange.php?img='+backgrounds[bgCounter]+'', function(data) {
+            if(backgrounds[bgCounter] == undefined)
+            {
+                getBackgrounds();
+                console.log("backgrounds[bgCounter] is undefinded\n getBackgrounds()");
+            }
+            else
+            {
+                console.log("backgrounds[bgCounter] isn't undefinded\n BGCOUNT",backgrounds[bgCounter]);
+            }
+            
+            
+            $.getJSON('/home/includes/headerchange.php?img='+backgrounds[bgCounter]+'', function(data) {
                  //alert(data);
-                 $(".header,.screenshot-placename").css("color", ""+data+"");
+                 $(".header,.screenshot-placename,.ips").css("color", ""+data+"");
             });
             
             $('body').css('background', 'url('+backgrounds[bgCounter]+') no-repeat center center fixed');
             $("body").css("background-size", "cover");
 
             setTimeout(changeBackground,10000);
-
         }
+        getBackgrounds();
         changeBackground();
     })();
     </script>

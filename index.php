@@ -1,4 +1,3 @@
-<?php include_once("analyticstracking.php") ?>
 <?php require_once('includes/functions.php'); ?>
 <?php require_once('includes/config.php'); ?>
 <?php require_once('includes/header.php'); ?>
@@ -11,7 +10,6 @@
 
     $freebuildStatus = checkMCServerOnline($server1['address']);
     $buildStatus = checkMCServerOnline($server2['address']);
-
 ?>
 <html>
     <head>
@@ -22,7 +20,19 @@
     </head>
     <body>
         <?php include_once("includes/nav.php"); ?>
-    <h3 id='desc' class='screenshot-placename'>Misty Mountains</h3>
+        <h3 id='desc' class='screenshot-placename'>
+            <?php 
+                $result = $mysqli->query("SELECT *
+                                FROM images
+                                WHERE name='bg1'");  
+    
+                $row = mysqli_fetch_array($result); echo $row['desc'];
+            ?>
+        </h3>
+        <div class="ips">
+            <h3 class="ip-header"><?php echo $server1['address']; ?></h3>
+            <h3 class="ip-header"><?php echo $server2['address']; ?></h3>
+        </div>
         <div class='header'>
             <img class='logo' src='assets/images/Icons/logo.png'>
             <h1 class='header1'><?php echo getSetting("info","Header");?></h1>
@@ -79,7 +89,7 @@
                             <div class='status-row'>
                                 <div class="list" id="list">
                                     <?php
-                                        try {if ($freebuildStatus != 'offline') getPlayerList(2); else echo "<p>Couldn't fetch Playerlist..</p>";} catch(Exception $e) {echo "sup";}
+                                        if ($freebuildStatus != 'offline') getPlayerList(2); else echo "<p>Couldn't fetch Playerlist..</p>";
                                     ?>
                                 </div>
                             </div>
@@ -115,7 +125,7 @@
                                 <?php fetchJobs(); ?>
                             </div>
                     </div>
-                    <div class="right-side">
+                    <div class="right-side"> <!-- DISABLED FOR NOW (TODO) -->
                         <!--<div clas='mojang'>
                             <div class='side-header'>Mojang</div>
                             <div class='status-row'>
@@ -162,7 +172,8 @@
                         $threadModel = XenForo_Model::create('XenForo_Model_Thread');
                         $conditions = array();
                         $options = array('join' => XenForo_Model_Thread::FETCH_FIRSTPOST,
-                                        'limit' => getSetting("info","threadLimit"));
+                                        'limit' => getSetting("info","threadLimit"),
+                                        'order'          => 'thread_id');
                         $threads = $threadModel->getThreadsInForum(2, $conditions, $options);
                         foreach ($threads AS $threadId => $thread) {
                             if ($threadModel->canViewThread($thread,$thread) && $thread['cta_ft_featured'] == 1) {

@@ -8,9 +8,15 @@ body
     overflow-x: hidden;
 
     color: #fff;
-    background: url(../images/bg/1.png) no-repeat center center fixed;
+    background: url("../images/bg/1.jpg") no-repeat center center fixed;
     background-position: center;
     background-size: cover;
+}
+
+a:-webkit-any-link
+{
+    text-decoration: none !important;
+    color: #e4e4e4;
 }
 
 label
@@ -44,8 +50,6 @@ input
        -moz-border-radius: 10px;
             border-radius: 10px;
     background-color: rgba(0, 0, 0, .5);
-    ;
-    ;
 }
 
 .row span
@@ -459,4 +463,9 @@ textarea
 .job-expiration
 {
     text-align: center;
+}
+
+#ui-datepicker-div
+{
+    display: none;
 }

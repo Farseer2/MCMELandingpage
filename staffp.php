@@ -1,17 +1,7 @@
 <?php require_once('includes/functions.php'); ?>
 <?php require_once('includes/config.php'); ?>
+<?php require_once('includes/header.php'); ?>
 <?php
-    $startTime = microtime(true);
-    $fileDir = '../';
-
-    require($fileDir . '/library/XenForo/Autoloader.php');
-    XenForo_Autoloader::getInstance()->setupAutoloader($fileDir . '/library');
-
-    XenForo_Application::initialize($fileDir . '/library', $fileDir);
-    XenForo_Application::set('page_start_time', $startTime);
-
-    XenForo_Session::startPublicSession();
-
     $visitor = XenForo_Visitor::getInstance();
 
     $currentVersion = getVersion();
@@ -85,7 +75,6 @@
         <title>Minecraft Middle Earth | Home</title>
     </head>
     <body>
-        <?php include_once("includes/nav.php"); ?>
         <div class="row">
             <h1>Staff Page</h1>
             <div class="settings"> 
@@ -101,7 +90,7 @@
                     <div class="tab_content">
                         <div class="tabs_item">
                             <h4>Home</h4>
-                            <a href=""><div class="button">balalallalla</div></a>
+                            <p>Home page of the Staff settings page</p>
                         </div>
                         <div class="tabs_item" style="display:none;">
                             <h4>Staff settings</h4>

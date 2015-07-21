@@ -1,7 +1,7 @@
 <?php include_once('config.php'); ?>
 <?php
-error_reporting(0);
-@ini_set('display_errors', 0);
+//error_reporting(0);
+//@ini_set('display_errors', 0);
 /*
     Functions
 */
@@ -12,8 +12,6 @@ error_reporting(0);
      *
      * @param string Type of the error: notice, error, or info.
      * @param string Message for the log.
-     * @param string $type
-     * @param string $message
      */
     function Logger($type,$message) //currently no longer used (TODO)
     {
@@ -192,7 +190,7 @@ error_reporting(0);
             $imgDisplay = 5;
             $moreInList = $playerNum - $imgDisplay;
 
-            if (count($players) > 5) { echo "<div id='$server' class='showplist'><a class='link'><p>And $moreInList more..</p></a></div>";}
+            if (count($players) > 5) { echo "<div id='$server' class='showplist'><a class='link'><p class='more'>And $moreInList more..</p></a></div>";}
         }
         else
         {
@@ -204,7 +202,7 @@ error_reporting(0);
      *
      * Get latest version from Github.
      *
-     * @return string Current (stable) version from Github.
+     * @return int Current (stable) version from Github.
      */
     function checkVersion()
     {
@@ -241,10 +239,12 @@ error_reporting(0);
     function updateSetting($columns=array(),$setting,$info) //used in admin & staff panel
     {
         global $mysqli;
-
-        $results = $mysqli->query("UPDATE settings
-                                        SET $columns[1]='$info'
-                                        WHERE $columns[0]='$setting'");
+        if ($info != null)
+        {
+            $results = $mysqli->query("UPDATE settings
+                                            SET $columns[1]='$info'
+                                            WHERE $columns[0]='$setting'");
+        }
     }
     function addJob($jobname, $jobinfo, $joblink, $jobwarp, $expiration)
     {
@@ -309,4 +309,18 @@ error_reporting(0);
 
         $mysqli->query('SET foreign_key_checks = 1');
         $mysqli->close();
+    }
+    function getImage($name,$column)
+    {
+        global $mysqli;
+        
+        $result = $mysqli->query("SELECT $column FROM images WHERE name='$name'")->fetch_object()->$column;
+            
+        return $result;
+    }
+    function updateImage($name,$description,$url)
+    {
+        global $mysqli;
+        $mysqli->query("UPDATE images
+                        SET description='$description',url='$url' WHERE name='$name'");
     }

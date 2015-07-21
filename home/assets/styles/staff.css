@@ -134,6 +134,17 @@ input
     transform: translateX(-100%);
 }
 
+.slide.show
+{
+    color: #aaa;
+    background-color: transparent;
+}
+
+h5
+{
+    
+}
+
 .admin + label
 {
     background-color: #af3333;

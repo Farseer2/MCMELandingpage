@@ -1,6 +1,6 @@
-<?php require_once('includes/functions.php'); ?>
-<?php require_once('includes/config.php'); ?>
-<?php require_once('includes/header.php'); ?>
+<?php require_once('home/includes/functions.php'); ?>
+<?php require_once('home/includes/config.php'); ?>
+<?php $fileDir = '.'; require_once('home/includes/header.php'); ?>
 <?php
 //error_reporting(0);
 //set_time_limit(5);
@@ -14,19 +14,19 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel='stylesheet' href='assets/styles/style.css'>
-        <link rel='stylesheet' href='assets/styles/nav.css'>
+        <link rel='stylesheet' href='home/assets/styles/style.css'>
+        <link rel='stylesheet' href='home/assets/styles/nav.css'>
         <title><?php echo getSetting("info","subHeader");?> | Home</title>
     </head>
     <body>
-        <?php include_once("includes/nav.php"); ?>
+        <?php include_once("home/includes/nav.php"); ?>
         <h3 id='desc' class='screenshot-placename'>
             <?php 
                 $result = $mysqli->query("SELECT *
                                 FROM images
                                 WHERE name='bg1'");  
     
-                $row = mysqli_fetch_array($result); echo $row['desc'];
+                $row = mysqli_fetch_array($result); echo $row['description'];
             ?>
         </h3>
         <div class="ips">
@@ -34,7 +34,7 @@
             <h3 class="ip-header"><?php echo $server2['address']; ?></h3>
         </div>
         <div class='header'>
-            <img class='logo' src='assets/images/Icons/logo.png'>
+            <img class='logo' src='home/assets/images/Icons/logo.png'>
             <h1 class='header1'><?php echo getSetting("info","Header");?></h1>
             <h2 class='header2'><?php echo getSetting("info","subHeader");?></h2>
             <div class="clear"></div>
@@ -63,7 +63,8 @@
                                 echo '<li>Points: '.$visitor['trophy_points'].'</li>'; 
 
                             } else {
-                                echo "<a href='http://www.mcmiddleearth.com/faq/'><div class='button modal-button'>JOIN US</div></a>";
+                                echo "<a href='http://www.mcmiddleearth.com/faq/'><div class='button modal-button'>JOIN US</div></a>
+                                or<a class='link' href='/login/'> login</a>";
                             }  
                         ?>
                         </ul>
@@ -122,7 +123,42 @@
                         </div>
                         <div class='side-header'>Jobs</div>
                             <div class="jobs">
-                                <?php fetchJobs(); ?>
+                                <?php 
+                                    if(getSetting("info","subHeader") == 1) 
+                                        fetchJobs(); 
+                                    else if(getSetting("info","subHeader") == 0)
+                                        echo "hi";
+                                ?>
+                                <?php
+                                /* (TODO) add themes a some point */ 
+                                /*
+                                    $threadModel = XenForo_Model::create('XenForo_Model_Thread');
+
+                                    $threads = $threadModel->getStickyThreadsInForum(4);
+
+                                    $themeDates = array();
+
+                                    foreach($threads as $thread)
+                                    {
+                                        $themeDates[$thread["thread_id"]] = $thread["post_date"];
+
+                                        $theme = array_search(max($themeDates), $themeDates);
+
+                                    }
+                                    if (strpos($threads[$theme]["title"], "Project Build") != true && strpos($threads[$theme]["title"], "Concept Build") != true)
+                                    {
+                                        echo "<div class='job-title theme'>".$threads[$theme]["title"]."</div>";
+                                    }
+                                    else if (strpos($threads[$theme]["title"], "Project Build") == true)
+                                    {
+                                        echo "<div class='job-title project'>".$threads[$theme]["title"]."</div>";
+                                    }
+                                    else if (strpos($threads[$theme]["title"], "Concept Build") == true)
+                                    {
+                                        echo "<div class='job-title concept'>".$threads[$theme]["title"]."</div>";
+                                    }
+                                    */
+                                ?>
                             </div>
                     </div>
                     <div class="right-side"> <!-- DISABLED FOR NOW (TODO) -->
@@ -184,6 +220,7 @@
                                             <a class="link readmore" href="' . XenForo_Link::buildPublicLink('canonical:threads', $thread) . '">Read More</a>
                                         </div>';
                             }
+                            //var_dump($thread);
                         }
                     ?>
                 </div>
@@ -191,9 +228,9 @@
             </div>
             <div class="clear"></div>
         </div>
+            <!--
         <div class='footer'>
-        <!-- (TODO) Footer here-->
-            <img class='logo' src='assets/images/Icons/logo.png'>
+            <img class='logo' src='home/assets/images/Icons/logo.png'>
             <div class="footer-left">
                 <h3>About Us</h3>
                 <p>Our community recreates the world of Middle Earth as described by J.R.R. Tolkien's books. Through online collaboration between people of different countries and of all ages, we build that world block by block within a Minecraft server.</p>
@@ -218,6 +255,7 @@ For inquires or questions, please direct yourself to    <a href="http://www.mcmi
             </div>
             <div class="clear"></div>
         </div>
+        -->
 <!--MODAL-->
           <div class="modal">
            <div class="overlay"></div>
@@ -245,7 +283,12 @@ For inquires or questions, please direct yourself to    <a href="http://www.mcmi
              </div>
         </div>
 <!--//MODAL-->
-        <script src='assets/scripts/jquery-1.11.2.min.js'></script>
-        <?php include_once("assets/scripts/script.php"); ?>
+        <script src='home/assets/scripts/jquery-1.11.2.min.js'></script>
+        <?php include_once("home/assets/scripts/script.php"); ?>
     </body>
 </html>
+    <?php 
+    XenForo_Template_Public::setStyleId(2);
+    $template = $dependencies->createTemplateObject('uix_extendedFooter', $params);
+        echo $template->render();
+    ?>

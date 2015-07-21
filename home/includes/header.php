@@ -1,6 +1,5 @@
 <?php    
     $startTime = microtime(true);
-    $fileDir = '../';
 
     require($fileDir . '/library/XenForo/Autoloader.php');
     XenForo_Autoloader::getInstance()->setupAutoloader($fileDir . '/library');

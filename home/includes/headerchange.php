@@ -1,6 +1,7 @@
 <?php header("Access-Control-Allow-Origin: *"); ?>
 <?php    
-    $filename = $_GET['img'];
+        $filename = $_GET['img'];
+        //$filename = str_replace('home/','',$filename);
 
         $luminance = getLuminance($filename,10);
 

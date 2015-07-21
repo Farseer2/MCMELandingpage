@@ -1,6 +1,6 @@
 <?php require_once('includes/functions.php'); ?>
 <?php require_once('includes/config.php'); ?>
-<?php require_once('includes/header.php'); ?>
+<?php $fileDir = '../'; require_once('includes/header.php'); ?>
 <?php
     $visitor = XenForo_Visitor::getInstance();
 
@@ -49,6 +49,15 @@
             }
             updateSettings();
         }
+        if (isset($_GET['updateImages'])) //when the update button is clicked..
+        {
+            if(isset($_POST['bg']))
+            {
+                $bg = $_POST['bg'];
+                
+                updateImage($bg['name'],$bg['desc'],$bg['url']); 
+            }
+        }
        if (isset($_GET['addjob']))
        {
            function addNewJob()
@@ -65,7 +74,6 @@
            }
            addNewJob();
        }
-      // var_dump($_POST['jobValues']);
        
 ?>
 <html>
@@ -104,9 +112,12 @@
                                             <input name="staffSettings['.$row["name"].']" class="slide" type="text" placeholder="'.getSetting("info",$row["name"]).'"/><label>'.$row["name"].'</label>
                                           </span>';
                                     }
+                                        
+                                    
                                 ?>
+                        
                                 <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
-                                <input id="update" type="submit" class="button update-settings" value="update"></input>
+                                <input id="update" type="submit" class="button update-settings" value="update">
                             </form>
                         </div>
                         <div class="tabs_item">
@@ -136,7 +147,7 @@
                                     </div>
                                 </div>
                                 <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
-                                <input id="add" type="submit" class="button update-settings add" value="add"></input>
+                                <input id="add" type="submit" class="button update-settings add" value="add">
                             </form>
                         </div>
                         <div class="tabs_item">
@@ -145,8 +156,16 @@
                             <a href="/bracketsHome/adminp.php"><div class="button">Update</div></a> <!--(TODO) fix this -->
                         </div>
                         <div class="tabs_item">
-                            <h4>Customize</h4>
-                            <h3>There is being worked on this feature. So it isn't available yet.</h3>
+                            <form name="form" action="staffp.php?updateImages=update" method="post">
+                                <h4>Images</h4>
+                            
+                                <input name="bg[name]" class="slide show" type="text" placeholder="bg1->bg6" required>
+                                <input name="bg[url]" class="slide show" type="text" placeholder="url" required>
+                                <input name="bg[desc]" class="slide show" type="text" placeholder="description" required>
+                        
+                                <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
+                                <input id="updateImages" type="submit" class="button update-settings" value="update">
+                            </form>
                         </div>
                         <div class="tabs_item">
                             <h4>Admin settings</h4>
@@ -167,7 +186,7 @@
                                     }
                                 ?>
                                 <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
-                                <input id="update" type="submit" class="button update-settings" value="update"></input>
+                                <input id="update" type="submit" class="button update-settings" value="update">
                             </form>
                             <?php   
                                 }

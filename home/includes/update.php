@@ -1,11 +1,5 @@
 <?php include_once("config.php"); ?>
-<?php
-    $startTime = microtime(true);
-    $kotomi_indexFile = "../../";
-    $kotomi_container = true;
-    $fileDir = dirname(__FILE__)."/{$kotomi_indexFile}";
-    require "{$fileDir}/library/Dark/Kotomi/KotomiHeader.php";
-?>
+<?php $fileDir = "../.."; include_once("header.php"); ?>
 <?php 
     global $mysqli;
 
@@ -56,6 +50,7 @@
 
         echo 'done.';
         $mysqli->close();
+        echo "<a href='/'>Go Home</a>";
     }
 ?>
 <div class="container">

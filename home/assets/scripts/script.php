@@ -8,7 +8,6 @@
             '/blackberry/i' => 'BlackBerry', 
             '/webos/i' => 'Mobile'
         );
-
         foreach($aMobileUA as $sMobileKey => $sMobileOS){
             if(preg_match($sMobileKey, $_SERVER['HTTP_USER_AGENT'])){
                 return true;
@@ -16,73 +15,41 @@
         }
         return false;
     }
-
     if (isMobileDevice() == true)
     {
-        //user is using mobile device, don't load the image switcher code
     }
     if (isMobileDevice() == false)
     {
+        
 ?>
 <script>
     (function () {
-        var bgCounter = 0,
-            backgrounds = [],
-            descriptions = [],
-            bgNames = ["bg1","bg2","bg3","bg4","bg5","bg6"];
+            var bgCounter = 0;
         
+            var backgrounds = [<?php echo json_encode(getImage("bg1","url")); ?>],
+            descriptions = [<?php echo json_encode(getImage("bg1","description")); ?>],
+            bgNames = ["bg1","bg2","bg3","bg4","bg5","bg6"];
 
-        var i;
-        function getBackgrounds()
-        {
-            for(i = 0; i < bgNames.length; i++) 
+        for(var i = 1; i < bgNames.length; i++) 
             {
-                $.getJSON('/home/includes/backgrounds.php?bg='+bgNames[i]+'', function(data) {
-
-                    backgrounds.push(data['url']);
-                    descriptions.push(data['desc']);
-
-                    console.log(data['desc']);
-                    console.log(data['url']);
-                });
-                console.log('/home/includes/backgrounds.php?bg='+bgNames[i]+'');
-            }         
-            console.log("BG COUNTER: ",bgCounter);
-            console.log("backgrounds BGCOUNTER",backgrounds[bgCounter]);
-            console.log("-----END OF getBackgrounds() function-----\n")
+            $.getJSON('/home/includes/backgrounds.php?bg='+bgNames[i]+'', function(data) {
+                descriptions.push(data['description']);
+                backgrounds.push(data['url']);
+            });
         }
-
         function changeBackground() 
         {   
-            bgCounter = (bgCounter+1) % 6;
             $('#desc').text(descriptions[bgCounter]);
-            console.log(backgrounds);
-            console.log(descriptions);
-            console.log("back ",backgrounds[bgCounter]);
-            console.log("desc ",descriptions[bgCounter]);
-            
-            if(backgrounds[bgCounter] == undefined)
-            {
-                getBackgrounds();
-                console.log("backgrounds[bgCounter] is undefinded\n getBackgrounds()");
-            }
-            else
-            {
-                console.log("backgrounds[bgCounter] isn't undefinded\n BGCOUNT",backgrounds[bgCounter]);
-            }
-            
             
             $.getJSON('/home/includes/headerchange.php?img='+backgrounds[bgCounter]+'', function(data) {
-                 //alert(data);
-                 $(".header,.screenshot-placename,.ips").css("color", ""+data+"");
+                 $(".header,.screenshot-placename").css("color", ""+data+"");
             });
             
             $('body').css('background', 'url('+backgrounds[bgCounter]+') no-repeat center center fixed');
             $("body").css("background-size", "cover");
-
+            bgCounter = (bgCounter+1) % 6;
             setTimeout(changeBackground,10000);
         }
-        getBackgrounds();
         changeBackground();
     })();
     </script>
@@ -113,4 +80,15 @@
           });
         });
     }); 
+    
+    $('#nav-btn').click(toggleMenu);
+$('main').click(function() {
+    if ($(this).hasClass('active')) {
+        toggleMenu();
+    }
+});
+
+function toggleMenu() {
+    $('#nav-btn, #sidebar, main, #cover').toggleClass('active');
+}
 </script>

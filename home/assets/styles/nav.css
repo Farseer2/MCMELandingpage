@@ -1,0 +1,244 @@
+.navTabs
+{
+    float: left;
+
+    height: 40px;
+    padding: 0 25px;
+    padding-top: 17.5px !important;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    list-style: none;
+
+    cursor: pointer;
+    -webkit-transition: background-color ease-in-out .5s;
+       -moz-transition: background-color ease-in-out .5s;
+         -o-transition: background-color ease-in-out .5s;
+            transition: background-color ease-in-out .5s;
+    text-align: center;
+    text-decoration: none !important;
+
+    color: #fff;
+    border-left: 1px solid rgba(0,0,0,.1);
+    background-color: none;
+    text-shadow: 0 -3px 3px rgba(255, 255, 255, .2);
+}
+
+.navTabs .publicTabs
+{
+    float: left;
+
+    height: 40px;
+
+    text-decoration: none !important;
+
+    color: #fff;
+}
+
+.navTabs .visitorTabs
+{
+    float: right;
+
+    height: 40px;
+
+    text-decoration: none !important;
+
+    color: #fff;
+}
+
+.navTabs .navTab
+{
+    float: left;
+
+    min-width: 80px;
+    height: 50px;
+    margin-top: -34px;
+    padding: 10px;
+
+    -webkit-transition: background-color ease-in-out .5s;
+       -moz-transition: background-color ease-in-out .5s;
+         -o-transition: background-color ease-in-out .5s;
+            transition: background-color ease-in-out .5s;
+    text-decoration: none !important;
+
+    color: #fff;
+    border-left: 1px solid rgba(0,0,0,.1);
+}
+
+.navTab:active
+{
+    background-color: rgba(255,255,255,.2);
+}
+
+.navTab:visited
+{
+    text-decoration: none !important;
+
+    color: white;
+}
+.navTab:hover
+{
+    background-color: #454e55;
+}
+.navLink
+{
+    font: 500 20px Raleway;
+
+    height: 50px;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #fff;
+}
+
+.account,
+.inbox,
+.alerts
+{
+    width: 50px;
+}
+
+.secondaryContent,
+.sectionfooter,
+.tabMenu,
+.Zero,
+.blockLinksList,
+.navTab .selected,
+.navTabs img,
+#VisitorExtraMenu_Counter,
+#uix_paneTrigger
+{
+    display: none;
+}
+
+.home > a
+{
+    font-weight: bolder;
+}
+
+.sidebar_container
+{
+    display: none;
+}
+/* Sidebar */
+
+#sidebar
+{
+    position: fixed;
+    z-index: 1;
+    left: -300px;
+
+    width: 300px;
+    height: 100%;
+
+    background-color: #333;
+}
+#sidebar.active
+{
+    left: 0;
+}
+
+#sidenav
+{
+    margin-top: 0px;
+}
+
+#sidenav a
+{
+    font-size: 1.5em;
+
+    padding: 0 50px;
+}
+
+#sidenav ul.bottom
+{
+    position: absolute;
+    bottom: 80px;
+}
+
+main.active:before
+{
+    position: fixed;
+    z-index: 100;
+
+    width: 100%;
+    height: 100%;
+
+    content: '';
+
+    background-color: rgba(0, 0, 0, .5);
+}
+/* nav Button */
+
+button
+{
+    z-index: 2;
+
+    width: 70px;
+    height: 70px;
+
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+#nav-btn
+{
+    position: absolute;
+    margin-top: -100px;
+    right: -70px;
+}
+
+#nav-btn > div
+{
+    position: relative;
+
+    width: 35px;
+    height: 4px;
+    margin: 7px auto;
+
+    border-radius: 5px;
+    background-color: #fff;
+}
+#nav-btn.active
+{
+    right: 0;
+
+    background-color: transparent;
+}
+/*MEDIA QUERY*/
+@media only screen and (max-width : 640px)
+{
+    .sidebar_container
+    {
+        display: block;
+    }
+    .navTabs
+    {
+        display: none;
+    }
+}
+/* NO NAVBAR STYLES */
+
+.button
+{
+    cursor: pointer;
+    -webkit-transition: background-color ease-in-out .3s;
+       -moz-transition: background-color ease-in-out .3s;
+         -o-transition: background-color ease-in-out .3s;
+            transition: background-color ease-in-out .3s;
+    text-align: center;
+
+    color: #a3a3a3;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #803b3b;
+
+     -khtml-border-radius: 10px;
+}
+
+.button:hover
+{
+    background-color: #a73434;
+}

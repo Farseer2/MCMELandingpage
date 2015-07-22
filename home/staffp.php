@@ -74,6 +74,12 @@
            }
            addNewJob();
        }
+       if (isset($_GET['job']))
+       {
+           $job = $_GET['job'];
+           
+           $mysqli->query("DELETE FROM jobs WHERE name='$job' limit 1");
+       }
        
 ?>
 <html>
@@ -143,22 +149,45 @@
                                     </div>
                                     <div class="job-input">
                                         <label>Expiration:</label>
-                                        <input name="jobValues[expiration]" id="datepicker" class="input job-expiration" type="text" required/>
+                                        <input name="jobValues[expiration]" id="datepicker" class="input job-expiration" type="text"/>
                                     </div>
                                 </div>
                                 <div class="load-container"><p>Saving values</p><div class="loader"></div></div>
                                 <input id="add" type="submit" class="button update-settings add" value="add">
                             </form>
+                            <div class="jobs">
+                                <form action="">
+                                    <h4>Delete Jobs</h4>
+                                    <?php
+                                        $date = date('Y-m-d');
+                                        $result = $mysqli->query("SELECT * FROM jobs WHERE expiration<=$date OR expiration=0000-00-00");
+
+                                        while($row=mysqli_fetch_array($result))
+                                        {
+                                            echo "<input type='submit' name='job' class='job' value='$row[name]'>";
+                                        } 
+                                    ?>
+                                </form>
+                            </div>
                         </div>
                         <div class="tabs_item">
                             <h4>Updates</h4>
                             <p>You may not have permissions to update the LandingPage.</p>
-                            <a href="/bracketsHome/adminp.php"><div class="button">Update</div></a> <!--(TODO) fix this -->
+                            <a href="/home/includes/update.php"><div class="button">Update</div></a> <!--(TODO) fix this -->
                         </div>
                         <div class="tabs_item">
                             <form name="form" action="staffp.php?updateImages=update" method="post">
                                 <h4>Images</h4>
-                            
+                                <div class="preview">
+                                    <?php
+                                        $result = $mysqli->query("SELECT url,name FROM images");
+
+                                        foreach ($result as $img)
+                                        {
+                                            echo "<div class='bgpreview'><img src='$img[url]'><p>$img[name]</p></div>";
+                                        } 
+                                    ?>
+                                </div>
                                 <input name="bg[name]" class="slide show" type="text" placeholder="bg1->bg6" required>
                                 <input name="bg[url]" class="slide show" type="text" placeholder="url" required>
                                 <input name="bg[desc]" class="slide show" type="text" placeholder="description" required>

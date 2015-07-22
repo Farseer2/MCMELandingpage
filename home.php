@@ -124,9 +124,9 @@
                         <div class='side-header'>Jobs</div>
                             <div class="jobs">
                                 <?php 
-                                    if(getSetting("info","subHeader") == 1) 
+                                    if(getSetting("info","useJobs") == 1) 
                                         fetchJobs(); 
-                                    else if(getSetting("info","subHeader") == 0)
+                                    else if(getSetting("info","useJobs") == 0)
                                         echo "hi";
                                 ?>
                                 <?php

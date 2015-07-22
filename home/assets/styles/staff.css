@@ -480,3 +480,35 @@ textarea
 {
     display: none;
 }
+
+.bgpreview > p
+{
+    display: block;
+}
+
+.bgpreview 
+{
+    margin-left:100px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 120px;
+}
+
+.preview
+{
+    float:left;
+}
+
+.job
+{
+    float:left;
+    background-color: crimson;
+    margin-left:200px;
+    margin:10px;
+}
+
+.jobs
+{
+    text-align:center;
+}

@@ -267,7 +267,7 @@
         {
             while($row=mysqli_fetch_array($result))
             {   
-                if ($row['expiration'] <= date('Y-m-d') == false)
+                if ($row['expiration'] <= date('Y-m-d') == false || $row['expiration'] == 0000-00-00)
                 {
                     echo '<div class="job-title">'.$row["name"].'</div>';
                     echo '<a href="'.$row["link"].'"><div class="job-link link">Post link</div></a>';
@@ -282,6 +282,10 @@
                     if ($row['expiration'] >= date('Y-m-d') && $row['expiration'] != $date->format('Y-m-d'))
                     {
                         echo "<div class='expiration'>ends: <div class='green'>".$row['expiration']."</div></div>";
+                    }
+                    if ($row['expiration'] == 0000-00-00)
+                    {
+                        echo "<div class='expiration'>indefinitely</div>";
                     }
                     echo "<div class='separater'></div>";
                 }
